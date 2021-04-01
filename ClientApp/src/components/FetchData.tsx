@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import authService from './api-authorization/AuthorizeService'
 
-export class FetchData extends Component {
+type FetchDataProps = {}
+
+type FetchDataState = {
+    loading: boolean
+    forecasts: Array<any>
+}
+
+export class FetchData extends Component<FetchDataProps, FetchDataState> {
   static displayName = FetchData.name;
 
-  constructor(props) {
+  constructor(props: FetchDataProps) {
     super(props);
     this.state = { forecasts: [], loading: true };
   }
@@ -13,7 +20,7 @@ export class FetchData extends Component {
     this.populateWeatherData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderForecastsTable(forecasts: Array<any>) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
