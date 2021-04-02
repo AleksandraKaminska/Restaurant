@@ -40,7 +40,7 @@ namespace Restaurant.Models
 
     public static void ShowExtent()
     {
-      Console.WriteLine("Extent of the class: " + typeof(Restaurant));
+      Console.WriteLine("Extent of the class: " + typeof(Local));
 
       foreach (Person person in extent)
       {
