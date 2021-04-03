@@ -7,20 +7,26 @@ namespace Restaurant.Models
   public class Local
   {
     // public int taxId { get; set; }
-
+    public int Id { get; set; }
     // atrybut złożony
-    public Address address { get; set; }
-    public int nrOfTables { get; set; }
+    public Address Address { get; set; }
+    public int NrOfTables { get; set; }
     // public Register register { get; set; }
 
     // atrybut klasowy
     // ekstensja
     static List<Local> allLocals = new List<Local>();
 
-    public Local(Address address, int nrOfTables)
+    public Local()
     {
-      this.address = address;
-      this.nrOfTables = nrOfTables;
+      AddLocal(this);
+    }
+
+    public Local(int id, Address address, int nrOfTables)
+    {
+      this.Id = id;
+      this.Address = address;
+      this.NrOfTables = nrOfTables;
       AddLocal(this);
     }
 
