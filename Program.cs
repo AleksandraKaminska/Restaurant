@@ -17,14 +17,32 @@ namespace Restaurant
     public class Program
     {
         private static Random random = new Random();
+
+        // • Ekstensja
+        // • Ekst. - trwałość
+        // • Atr.złożony ✅
+        // • Atr.opcjonalny
+        // • Atr.powt
+        // • Atr.klasowy
+        // • Atr.pochodny
+        // • Met.klasowa
+        // • Przesłonięcie,
+        // • przeciążenie
+
         public static void Main(string[] args)
         {
 
             /*
+            * - atrybut opcjonalny
+            */
+            Address address1 = new Address("Street 1", "City 1", "12-122");
+            Address address2 = new Address("Street 1", "City 1", "12-122");
+
+            /*
             * - ekstensja
             */
-            Local restaurant = new Local();
-            Local restaurant1 = new Local();
+            Local local = new Local(address1, 30);
+            Local local1 = new Local(address2, 40);
 
             Local.ShowExtent();
 
@@ -37,11 +55,6 @@ namespace Restaurant
             */
             Invoice invoice = new Invoice(recipientTaxId, recepeeTaxId, orderedMeals);
 
-            /*
-            * - atrybut opcjonalny
-            */
-            Address address = new Address("Street 1", "City 1", "12-122");
-            restaurant.address = address;
 
             /*
             * - atrybut powtarzalny
