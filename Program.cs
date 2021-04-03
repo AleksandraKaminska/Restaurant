@@ -36,13 +36,13 @@ namespace Restaurant
             * - atrybut opcjonalny
             */
             Address address1 = new Address("Street 1", "City 1", "12-122");
-            Address address2 = new Address("Street 1", "City 1", "12-122");
+            Address address2 = new Address("Street 2", "City 2", "13-133");
 
             /*
             * - ekstensja
             */
-            Local local = new Local(address1, 30);
-            Local local1 = new Local(address2, 40);
+            Local local = new Local(1, address1, 30);
+            Local local1 = new Local(2, address2, 40);
 
             Local.ShowExtent();
 
@@ -79,16 +79,6 @@ namespace Restaurant
             Person jslowacki = new Person("Juliusz", "Słowacki");
 
             Person.ShowExtent();
-
-            // // przykład serializacji
-            // Stream writeStream = new FileStream("Person.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-            // Person.WriteExtent(writeStream);
-            // writeStream.Close();
-
-            // // przykład deserializacji
-            // Stream readStream = new FileStream("Person.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-            // Person.ReadExtent(readStream);
-            // readStream.Close();
 
             // przeciążenie
             Menu menu = new Menu(new List<Meal>());

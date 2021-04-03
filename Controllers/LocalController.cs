@@ -25,18 +25,21 @@ namespace Restaurant.Controllers
     {
       return localService.GetAll();
     }
+
     // GET api/locals/5
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
       return Ok(localService.GetById(id));
     }
+
     // POST api/locals
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Local local)
     {
       return CreatedAtAction("Get", new { id = local.Id }, localService.Create(local));
     }
+
     // PUT api/locals/5
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] Local local)
@@ -44,6 +47,7 @@ namespace Restaurant.Controllers
       localService.Update(id, local);
       return NoContent();
     }
+
     // DELETE api/locals/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
@@ -51,6 +55,7 @@ namespace Restaurant.Controllers
       localService.Delete(id);
       return NoContent();
     }
+
     public override NoContentResult NoContent()
     {
       return base.NoContent();
