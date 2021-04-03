@@ -9,6 +9,7 @@ namespace Restaurant.Models
     public int taxId { get; set; }
     public Address address { get; set; }
     public Register register { get; set; }
+    public int nrOfTables { get; set; }
 
     // atrybut klasowy
     static List<Local> allLocals = new List<Local>();

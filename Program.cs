@@ -19,7 +19,7 @@ namespace Restaurant
         private static Random random = new Random();
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+
             /*
             * - ekstensja
             */
@@ -67,42 +67,44 @@ namespace Restaurant
 
             Person.ShowExtent();
 
-            // przykład serializacji
-            Stream writeStream = new FileStream("Person.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-            Person.WriteExtent(writeStream);
-            writeStream.Close();
+            // // przykład serializacji
+            // Stream writeStream = new FileStream("Person.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+            // Person.WriteExtent(writeStream);
+            // writeStream.Close();
 
-            // przykład deserializacji
-            Stream readStream = new FileStream("Person.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-            Person.ReadExtent(readStream);
-            readStream.Close();
+            // // przykład deserializacji
+            // Stream readStream = new FileStream("Person.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+            // Person.ReadExtent(readStream);
+            // readStream.Close();
 
             // przeciążenie
             Menu menu = new Menu(new List<Meal>());
             menu.PrintMenu();
+
+            CreateHostBuilder(args).Build().Run();
         }
 
         private static Invoice generateRandomInvoice()
         {
-        int recipientTaxId = random.Next(1, 100);
-        int recepeeTaxId = random.Next(1, 100);
+            int recipientTaxId = random.Next(1, 100);
+            int recepeeTaxId = random.Next(1, 100);
 
-        List<Meal> orderedMeals = new List<Meal>();
+            List<Meal> orderedMeals = new List<Meal>();
 
-        // metoda klasowa
-        Ingridient.WarehouseAddress = new Address("Random Street", "Random City", "12-122");
-        Console.WriteLine("Warehouse Address");
-        Console.WriteLine(Ingridient.ShowWarehouseAddress());
-        var ingridient = new Ingridient("Potatoe", 12);
-        var ingridients = new List<Ingridient>();
-        ingridients.Add(ingridient);
+            // metoda klasowa
+            Ingridient.WarehouseAddress = new Address("Random Street", "Random City", "12-122");
+            Console.WriteLine("Warehouse Address");
+            Console.WriteLine(Ingridient.ShowWarehouseAddress());
+            var ingridient = new Ingridient("Potatoe", 12);
+            var ingridients = new List<Ingridient>();
+            ingridients.Add(ingridient);
 
-        // atrybut klasowy
-        var meal = new Meal(ingridients, "Potatoe soup");
+            // atrybut klasowy
+            var meal = new Meal(ingridients, "Potatoe soup");
 
-        orderedMeals.Add(meal);
+            orderedMeals.Add(meal);
 
-        return new Invoice(recipientTaxId, recepeeTaxId, orderedMeals);
+            return new Invoice(recipientTaxId, recepeeTaxId, orderedMeals);
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)

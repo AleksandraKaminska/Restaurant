@@ -1,19 +1,39 @@
 import React, { useState } from 'react';
 
 const Counter: React.FC<{}> = () => {
-    const [currentCount, setCurrentCount] = useState<number>(0);
-
-    const incrementCounter = () => setCurrentCount(currentCount + 1)
-
     return (
         <div>
-            <h1>Counter</h1>
-
-            <p>This is a simple example of a React component.</p>
-
-            <p aria-live="polite">Current count: <strong>{currentCount}</strong></p>
-
-            <button className="btn btn-primary" onClick={incrementCounter}>Increment</button>
+            <h1>Add a new local</h1>
+            <form>
+                <div className="form-group">
+                    <label htmlFor="exampleFormControlInput1">Email address</label>
+                    <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="exampleFormControlSelect1">Example select</label>
+                    <select className="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="exampleFormControlSelect2">Example multiple select</label>
+                    <select multiple className="form-control" id="exampleFormControlSelect2">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="exampleFormControlTextarea1">Example textarea</label>
+                    <textarea className="form-control" id="exampleFormControlTextarea1" rows={3}></textarea>
+                </div>
+            </form>
         </div>
     )
 }
