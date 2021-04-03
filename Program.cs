@@ -41,8 +41,8 @@ namespace Restaurant
             /*
             * - ekstensja
             */
-            Local local = new Local(1, address1, 30);
-            Local local1 = new Local(2, address2, 40);
+            Local local = new Local(99, address1, 30);
+            Local local1 = new Local(100, address2, 40);
 
             Local.ShowExtent();
 

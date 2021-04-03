@@ -29,13 +29,13 @@ namespace Restaurant
         {
             services.AddSingleton<UserService>();
             services.AddSingleton<LocalService>();
-            services.AddCors(o => o.AddPolicy("ReactPolicy", builder =>
-            {
-                builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials();
-            }));
+            // services.AddCors(o => o.AddPolicy("ReactPolicy", builder =>
+            // {
+            //     builder.AllowAnyOrigin()
+            //             .AllowAnyMethod()
+            //             .AllowAnyHeader()
+            //             .AllowCredentials();
+            // }));
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(
@@ -77,7 +77,7 @@ namespace Restaurant
                 app.UseHsts();
             }
 
-            app.UseCors("ReactPolicy");
+            // app.UseCors("ReactPolicy");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

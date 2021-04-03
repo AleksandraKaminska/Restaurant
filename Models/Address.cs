@@ -7,42 +7,42 @@ namespace Restaurant.Models
   [Serializable]
   public class Address
   {
-    string street;
-    string city;
-    string zipCode;
-    string apartmentNumber;
+    public string Street { get; set; }
+    public string City { get; set; }
+    public string ZipCode { get; set; }
+    public string ApartmentNumber { get; set; }
 
     // apartmentNumber - atrybut opcjonalny
     public Address(string street, string city, string zipCode, string apartmentNumber = null)
     {
-      this.street = street;
-      this.city = city;
-      this.zipCode = zipCode;
-      this.apartmentNumber = apartmentNumber;
+        Street = street;
+        City = city;
+        ZipCode = zipCode;
+        ApartmentNumber = apartmentNumber;
     }
 
     // apartmentNumber - atrybut opcjonalny
     // UpdateAddress - przeciężenie metody
     public void UpdateAddress(string street, string city, string zipCode, string apartmentNumber = null)
     {
-      this.street = street;
-      this.city = city;
-      this.zipCode = zipCode;
-      this.apartmentNumber = apartmentNumber;
+        Street = street;
+        City = city;
+        ZipCode = zipCode;
+        ApartmentNumber = apartmentNumber;
     }
 
     // UpdateAddress - przeciężenie metody
     public void UpdateAddress(Address address)
     {
-      this.street = address.street;
-      this.city = address.city;
-      this.zipCode = address.zipCode;
-      this.apartmentNumber = address.apartmentNumber;
+        Street = address.Street;
+        City = address.City;
+        ZipCode = address.ZipCode;
+        ApartmentNumber = address.ApartmentNumber;
     }
 
     public override string ToString()
     {
-      return $"City: {city}\nStreet: {street}\nApartnemt number: {apartmentNumber}";
+      return $"City: {City}\nStreet: {Street}\nApartnemt number: {ApartmentNumber}";
     }
   }
 }

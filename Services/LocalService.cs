@@ -1,6 +1,7 @@
 using Restaurant.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Restaurant.Services
@@ -23,6 +24,7 @@ namespace Restaurant.Services
     public Local Create(Local local)
     {
       local.Id = Count++;
+      Debug.WriteLine(local.ToString());
       locals.Add(local);
       return local;
     }
