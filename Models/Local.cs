@@ -12,6 +12,7 @@ namespace Restaurant.Models
     public int nrOfTables { get; set; }
 
     // atrybut klasowy
+    // ekstensja
     static List<Local> allLocals = new List<Local>();
 
     public Local()
@@ -32,9 +33,14 @@ namespace Restaurant.Models
     }
 
     // metoda klasowa
-    public static void PrintAllLocals()
+    public static void ShowExtent()
     {
       Console.WriteLine("Extent of the class: " + typeof(Local));
+
+      foreach (Local local in allLocals)
+      {
+        Console.WriteLine(local.ToString());
+      }
     }
   }
 }

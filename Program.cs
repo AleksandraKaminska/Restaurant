@@ -26,7 +26,7 @@ namespace Restaurant
             Local restaurant = new Local();
             Local restaurant1 = new Local();
 
-            Local.PrintAllLocals();
+            Local.ShowExtent();
 
             int recipientTaxId = 0;
             int recepeeTaxId = 1;
