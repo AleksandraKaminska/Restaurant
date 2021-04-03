@@ -41,10 +41,10 @@ namespace Restaurant.Controllers
         {
             if (local == null)
                 return BadRequest();
-            Debug.WriteLine(local.ToString());
+
             return CreatedAtAction("Get", new { id = local.Id }, localService.Create(local));
         }
-            catch (Exception err)
+        catch (Exception err)
         {
             return StatusCode(StatusCodes.Status500InternalServerError,
                 err);

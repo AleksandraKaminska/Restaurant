@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { LOCALS_API_URL } from '../../constants';
 import './Local.css';
 
 const Counter: React.FC<{}> = () => {
@@ -11,29 +12,39 @@ const Counter: React.FC<{}> = () => {
             address: { street: '', apartmentNumber: '', city: '', zipCode: '' },
             nrOfTables: 1
           }}
-          validate={values => {
-            const errors = { address: {}} as any;
-            console.log(values)
-            if (!values.address.street) {
-              errors.address.street = 'Required';
-            }
-            if (!values.address.city) {
-              errors.address.city = 'Required';
-            }
-            if (!values.address.zipCode) {
-              errors.address.zipCode = 'Required';
-            }
-            if (values.nrOfTables < 1)
-            {
-              errors.nrOfTables = 'Number of tables must be greater than 0'
-            }
-            return errors;
-          }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+          // validate={values => {
+          //   const errors = { address: {}} as any;
+          //   // if (!values.address.street) {
+          //   //   errors.address.street = 'Required';
+          //   // }
+          //   // if (!values.address.city) {
+          //   //   errors.address.city = 'Required';
+          //   // }
+          //   // if (!values.address.zipCode) {
+          //   //   errors.address.zipCode = 'Required';
+          //   // }
+          //   // if (values.nrOfTables < 1)
+          //   // {
+          //   //   errors.nrOfTables = 'Number of tables must be greater than 0'
+          //   // }
+          //   return errors;
+          // }}
+          onSubmit={(values, { setSubmitting }) =>
+          {
+            fetch(LOCALS_API_URL, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    address: values.address,
+                    nrOfTables: values.nrOfTables
+                })
+            })
+            .then(res => res.json())
+            .catch(err => console.log(err));
+
+            setSubmitting(false);
           }}
         >
           {({ isSubmitting, errors }) => (

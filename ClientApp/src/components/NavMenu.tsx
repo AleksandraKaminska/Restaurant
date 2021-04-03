@@ -24,6 +24,9 @@ const NavMenu: React.FC<{}> = () => {
                                 <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
                             </NavItem>
                             <NavItem>
+                                <NavLink tag={Link} className="text-dark" to="/locals">All locals</NavLink>
+                            </NavItem>
+                            <NavItem>
                                 <NavLink tag={Link} className="text-dark" to="/locals/new">New local</NavLink>
                             </NavItem>
                             <NavItem>
