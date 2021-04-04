@@ -7,9 +7,13 @@ namespace Restaurant.Models
   [Serializable]
   public class Address
   {
+    [Required]
     public string Street { get; set; }
+    [Required]
     public string City { get; set; }
+    [Required]
     public string ZipCode { get; set; }
+    [Optional]
     public string ApartmentNumber { get; set; }
 
     // apartmentNumber - atrybut opcjonalny
@@ -42,7 +46,9 @@ namespace Restaurant.Models
 
     public override string ToString()
     {
-      return $"City: {City}\nStreet: {Street}\nApartnemt number: {ApartmentNumber}";
+      return ApartmentNumber == null
+        ? $"City: {City}\nStreet: {Street}"
+        : $"City: {City}\nStreet: {Street}\nApartment number: {ApartmentNumber}";
     }
   }
 }

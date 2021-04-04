@@ -21,7 +21,7 @@ namespace Restaurant
         // • Ekstensja
         // • Ekst. - trwałość
         // • Atr.złożony ✅
-        // • Atr.opcjonalny
+        // • Atr.opcjonalny ✅
         // • Atr.powt
         // • Atr.klasowy
         // • Atr.pochodny
