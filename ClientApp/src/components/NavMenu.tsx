@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Container, DropdownItem, DropdownMenu, DropdownToggle, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, UncontrolledDropdown } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { LoginMenu } from './api-authorization/LoginMenu';
 import './NavMenu.css';
@@ -24,14 +24,21 @@ const NavMenu: React.FC<{}> = () => {
                                 <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/locals">All locals</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/locals/new">New local</NavLink>
-                            </NavItem>
-                            <NavItem>
                                 <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
                             </NavItem>
+                            <UncontrolledDropdown nav inNavbar>
+                                <DropdownToggle nav>
+                                    Locals
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem>
+                                        <NavLink tag={Link} className="text-dark" to="/locals">All</NavLink>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <NavLink tag={Link} className="text-dark" to="/locals/new">New</NavLink>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
                             <LoginMenu/>
                         </ul>
                     </Collapse>
