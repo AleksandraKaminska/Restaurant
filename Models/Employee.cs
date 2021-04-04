@@ -42,6 +42,10 @@ namespace Restaurant.Models
       AddEmployee(this);
     }
 
+    public double getSalary(int hours, double tips = 0) {
+      return hours * HourlyRate + tips;
+    }
+
     // przesłonięcie
     // public new string GetIdentificationString()
     // {

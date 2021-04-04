@@ -27,13 +27,11 @@ namespace Restaurant.Models
       AddLocal(this);
     }
 
-    // metoda klasowa
     public static void AddLocal(Local restaurant)
     {
       allLocals.Add(restaurant);
     }
 
-    // metoda klasowa
     public static void RemoveLocal(Local restaurant)
     {
       allLocals.Remove(restaurant);

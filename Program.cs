@@ -24,7 +24,7 @@ namespace Restaurant
         // • Atr.opcjonalny ✅
         // • Atr.powt ✅
         // • Atr.klasowy ✅
-        // • Atr.pochodny
+        // • Atr.pochodny ✅
         // • Met.klasowa
         // • Przesłonięcie,
         // • przeciążenie
