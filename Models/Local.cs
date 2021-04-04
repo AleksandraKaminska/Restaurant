@@ -6,12 +6,10 @@ namespace Restaurant.Models
 {
   public class Local
   {
-    // public int taxId { get; set; }
     public int Id { get; set; }
     // atrybut złożony
     public Address Address { get; set; }
     public int NrOfTables { get; set; }
-    // public Register register { get; set; }
 
     // atrybut klasowy
     // ekstensja
@@ -51,6 +49,10 @@ namespace Restaurant.Models
       {
         Console.WriteLine(local.ToString());
       }
+    }
+
+    public override string ToString() {
+      return $"Local {Id}: {Address}, nr of tables: {NrOfTables}";
     }
   }
 }
