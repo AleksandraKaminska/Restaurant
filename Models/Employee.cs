@@ -52,6 +52,16 @@ namespace Restaurant.Models
     //   return $"{base.GetIdentificationString()}: {employeeId}";
     // }
 
+    // private static getEmploymentLength() {
+
+    // }
+
+    //Metoda klasowa
+    // public List<Secretary> findSecretaryWithTheBiggestSalary()
+    // {
+    //   return Collections.singletonList(secretaryList.stream().max(Comparator.comparing(Secretary::getSalary)).get());
+    // }
+
     private static void AddEmployee(Employee employee)
     {
       Extent.Add(employee);
