@@ -22,8 +22,8 @@ namespace Restaurant
         // • Ekst. - trwałość
         // • Atr.złożony ✅
         // • Atr.opcjonalny ✅
-        // • Atr.powt
-        // • Atr.klasowy
+        // • Atr.powt ✅
+        // • Atr.klasowy ✅
         // • Atr.pochodny
         // • Met.klasowa
         // • Przesłonięcie,

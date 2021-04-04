@@ -11,7 +11,6 @@ namespace Restaurant.Models
     public Address Address { get; set; }
     public int NrOfTables { get; set; }
 
-    // atrybut klasowy
     // ekstensja
     static List<Local> allLocals = new List<Local>();
 
@@ -22,9 +21,9 @@ namespace Restaurant.Models
 
     public Local(int id, Address address, int nrOfTables)
     {
-      this.Id = id;
-      this.Address = address;
-      this.NrOfTables = nrOfTables;
+      Id = id;
+      Address = address;
+      NrOfTables = nrOfTables;
       AddLocal(this);
     }
 
