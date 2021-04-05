@@ -35,24 +35,6 @@ namespace Restaurant.Models
             }
         }
 
-        public static void SerializeToFile(string fileName)
-        {
-            var dictForSerialization = _extent.ToDictionary(x => x.Key.FullName, x => x.Value);
-
-            using Stream stream = File.Open(fileName, FileMode.Create);
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, dictForSerialization);
-        }
-
-        public static void DeserializeFromFile(string fileName)
-        {
-            using Stream stream = File.Open(fileName, FileMode.Open);
-            BinaryFormatter formatter = new BinaryFormatter();
-            var deserializedDictionary = (Dictionary<string, ICollection<ObjectPlus>>)formatter.Deserialize(stream);
-
-            _extent = deserializedDictionary.ToDictionary(x => Type.GetType(x.Key), x => x.Value);
-        }
-
         public static void SerializeDictionary(string fileName)
         {
             using var stream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.Read);
@@ -85,7 +67,7 @@ namespace Restaurant.Models
 
         public void ShowExtent()
         {
-          Console.WriteLine($"Extenet of the class: {nameof(Employee)}");
+          Console.WriteLine($"Extent of the class: {nameof(Employee)}");
           int count = 0;
 
           foreach (ObjectPlus obj in Extent[this.GetType()])
