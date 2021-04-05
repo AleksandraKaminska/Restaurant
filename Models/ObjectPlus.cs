@@ -12,7 +12,6 @@ namespace Restaurant.Models
     public abstract class ObjectPlus
     {
         private static Dictionary<Type, ICollection<ObjectPlus>> _extent = new Dictionary<Type, ICollection<ObjectPlus>>();
-        //private static Dictionary<Type, List<Object>> _ekstensje = new Dictionary<Type, List<Object>>();
         static JsonSerializerSettings JsonSettings { get { return new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto, Formatting = Formatting.Indented }; } }
 
         public ObjectPlus()
@@ -58,12 +57,6 @@ namespace Restaurant.Models
                 _extent.Clear();
             }
         }
-
-        //public static List<Object> GetEkstensja(Type className)
-        //{
-        //    List<Object> list = _extent[className];
-        //    return list;
-        //}
 
         public void ShowExtent()
         {
