@@ -18,7 +18,7 @@ namespace Restaurant
     {
         private static Random random = new Random();
 
-        // • Ekstensja
+        // • Ekstensja ✅
         // • Ekst. - trwałość
         // • Atr.złożony ✅
         // • Atr.opcjonalny ✅
@@ -60,7 +60,7 @@ namespace Restaurant
             * Trwała ekstensja
             */
             var phoneNumbers1 = new List<string> {"123456789"};
-            var phoneNumbers2 = new List<string> {"987654321"};
+            var phoneNumbers2 = new List<string> {"987654321", "111222333"};
             Employee amickiewicz = new Employee(1, "Adam", "Mickiewicz", phoneNumbers1, new DateTime(2020, 6, 20), 35);
             Employee jslowacki = new Employee(2, "Juliusz", "Słowacki", phoneNumbers2, new DateTime(2020, 9, 11), 30.5);
 

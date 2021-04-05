@@ -35,7 +35,7 @@ namespace Restaurant.Models
 
       if (hourlyRate > MaxHourlyRate)
       {
-        throw new ArgumentException("The hourly rate value must be lower than the maximum hourly rate");
+        throw new ArgumentException("The hourly rate value must be lower than the maximum hourly rate", nameof(hourlyRate));
       }
 
       AddEmployee(this);
@@ -44,12 +44,6 @@ namespace Restaurant.Models
     public double getSalary(int hours, double tips = 0) {
       return hours * HourlyRate + tips;
     }
-
-    // przesłonięcie
-    // public new string GetIdentificationString()
-    // {
-    //   return $"{base.GetIdentificationString()}: {employeeId}";
-    // }
 
     private static void AddEmployee(Employee employee)
     {
