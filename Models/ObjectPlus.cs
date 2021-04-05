@@ -49,5 +49,17 @@ namespace Restaurant.Models
 
             _extent = deserializedDictionary.ToDictionary(x => Type.GetType(x.Key), x => x.Value);
         }
+
+        public void ShowExtent()
+        {
+          Console.WriteLine($"Extenet of the class: {nameof(Employee)}");
+          int count = 0;
+
+          foreach (ObjectPlus obj in Extent[this.GetType()])
+          {
+            Console.WriteLine($"----- {nameof(Employee)}: {++count} ------");
+            Console.WriteLine(obj.ToString());
+          }
+        }
     }
 }

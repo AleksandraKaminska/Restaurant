@@ -51,18 +51,6 @@ namespace Restaurant.Models
       return hours * HourlyRate + tips;
     }
 
-    public void ShowExtent()
-    {
-        Console.WriteLine($"Extenet of the class: {nameof(Employee)}");
-        int count = 0;
-
-        foreach (Employee emp in Extent[this.GetType()])
-        {
-            Console.WriteLine($"----- Employee: {++count} ------");
-            Console.WriteLine(emp.ToString());
-        }
-    }
-
     public override string ToString()
     {
       return $"{FirstName} {LastName}: {Id}";
