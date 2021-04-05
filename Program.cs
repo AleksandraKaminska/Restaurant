@@ -69,9 +69,9 @@ namespace Restaurant
             Menu menu = new Menu(new List<Meal>());
             menu.PrintMenu();
 
-            var fileName = "TextFile.txt";
-            ObjectPlus.SerializeToFile(fileName);
-            ObjectPlus.DeserializeFromFile(fileName);
+            var fileName = "extents.json";
+            ObjectPlus.SerializeDictionary(fileName);
+            ObjectPlus.DeserializeDictionary(fileName);
 
             CreateHostBuilder(args).Build().Run();
         }

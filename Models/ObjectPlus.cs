@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using Newtonsoft.Json;
 
 namespace Restaurant.Models
 {
@@ -11,6 +12,8 @@ namespace Restaurant.Models
     public abstract class ObjectPlus
     {
         private static Dictionary<Type, ICollection<ObjectPlus>> _extent = new Dictionary<Type, ICollection<ObjectPlus>>();
+        //private static Dictionary<Type, List<Object>> _ekstensje = new Dictionary<Type, List<Object>>();
+        static JsonSerializerSettings JsonSettings { get { return new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto, Formatting = Formatting.Indented }; } }
 
         public ObjectPlus()
         {
@@ -49,6 +52,36 @@ namespace Restaurant.Models
 
             _extent = deserializedDictionary.ToDictionary(x => Type.GetType(x.Key), x => x.Value);
         }
+
+        public static void SerializeDictionary(string fileName)
+        {
+            using var stream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.Read);
+            using var writer = new StreamWriter(stream);
+            var serializer = JsonSerializer.CreateDefault(JsonSettings);
+            serializer.Serialize(writer, _extent);
+        }
+
+        public static void DeserializeDictionary(string fileName)
+        {
+            try
+            {
+                using var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                using var reader = new StreamReader(stream);
+                using var jsonReader = new JsonTextReader(reader);
+                var serializer = JsonSerializer.CreateDefault(JsonSettings);
+                _extent = serializer.Deserialize<Dictionary<Type, ICollection<ObjectPlus>>>(jsonReader);
+            }
+            catch (FileNotFoundException)
+            {
+                _extent.Clear();
+            }
+        }
+
+        //public static List<Object> GetEkstensja(Type className)
+        //{
+        //    List<Object> list = _extent[className];
+        //    return list;
+        //}
 
         public void ShowExtent()
         {

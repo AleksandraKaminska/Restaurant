@@ -1,0 +1,27 @@
+{
+  "Restaurant.Models.Employee, Restaurant, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": [
+    {
+      "$type": "Restaurant.Models.Employee, Restaurant",
+      "Id": 1,
+      "FirstName": "Adam",
+      "LastName": "Mickiewicz",
+      "PhoneNumbers": [
+        "123456789"
+      ],
+      "EmploymentDate": "2020-06-20T00:00:00",
+      "HourlyRate": 35.0
+    },
+    {
+      "$type": "Restaurant.Models.Employee, Restaurant",
+      "Id": 2,
+      "FirstName": "Juliusz",
+      "LastName": "Słowacki",
+      "PhoneNumbers": [
+        "987654321",
+        "111222333"
+      ],
+      "EmploymentDate": "2020-09-11T00:00:00",
+      "HourlyRate": 30.5
+    }
+  ]
+}
