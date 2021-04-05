@@ -14,7 +14,6 @@ namespace Restaurant.Models
       this.meals = meals;
     }
 
-    // Przeciążenie
     public void PrintMenu()
     {
       foreach (Meal meal in meals)

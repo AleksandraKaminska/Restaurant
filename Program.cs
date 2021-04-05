@@ -26,8 +26,8 @@ namespace Restaurant
         // • Atr.klasowy ✅
         // • Atr.pochodny ✅
         // • Met.klasowa
-        // • Przesłonięcie,
-        // • przeciążenie
+        // • Przesłonięcie ✅
+        // • przeciążenie ✅
 
         public static void Main(string[] args)
         {
@@ -63,9 +63,6 @@ namespace Restaurant
             register.AddInvoice(generateRandomInvoice());
             register.AddInvoice(generateRandomInvoice());
 
-            /*
-            * - przesłonięcie metodaGetIdentificationString
-            */
             Employee employee = new Employee("John", "Doe");
 
             // atrybut złożony
@@ -80,7 +77,6 @@ namespace Restaurant
 
             Person.ShowExtent();
 
-            // przeciążenie
             Menu menu = new Menu(new List<Meal>());
             menu.PrintMenu();
 
@@ -94,7 +90,6 @@ namespace Restaurant
 
             List<Meal> orderedMeals = new List<Meal>();
 
-            // metoda klasowa
             Ingridient.WarehouseAddress = new Address("Random Street", "Random City", "12-122");
             Console.WriteLine("Warehouse Address");
             Console.WriteLine(Ingridient.ShowWarehouseAddress());

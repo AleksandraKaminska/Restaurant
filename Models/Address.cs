@@ -26,7 +26,6 @@ namespace Restaurant.Models
     }
 
     // apartmentNumber - atrybut opcjonalny
-    // UpdateAddress - przeciężenie metody
     public void UpdateAddress(string street, string city, string zipCode, string apartmentNumber = null)
     {
         Street = street;
@@ -35,7 +34,7 @@ namespace Restaurant.Models
         ApartmentNumber = apartmentNumber;
     }
 
-    // UpdateAddress - przeciężenie metody
+    // przeciążenie metody
     public void UpdateAddress(Address address)
     {
         Street = address.Street;
@@ -44,6 +43,7 @@ namespace Restaurant.Models
         ApartmentNumber = address.ApartmentNumber;
     }
 
+    // przesłonięcie
     public override string ToString()
     {
       return ApartmentNumber == null

@@ -18,7 +18,6 @@ namespace Restaurant.Models
       this.Price = price;
     }
 
-    // metoda klasowa
     public static string ShowWarehouseAddress()
     {
       return WarehouseAddress.ToString();

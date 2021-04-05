@@ -6,12 +6,15 @@ namespace Restaurant.Models
 {
   public class Local
   {
+    [Required]
     public int Id { get; set; }
     // atrybut złożony
+    [Required]
     public Address Address { get; set; }
+    [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
     public int NrOfTables { get; set; }
 
-    // ekstensja
+    // ekstensja klasy
     static List<Local> allLocals = new List<Local>();
 
     public Local()
