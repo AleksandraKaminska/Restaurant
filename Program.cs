@@ -55,8 +55,6 @@ namespace Restaurant
             */
             Invoice invoice = new Invoice(recipientTaxId, recepeeTaxId, orderedMeals);
 
-
-
             var phoneNumbers1 = new List<string> {"123456789"};
             var phoneNumbers2 = new List<string> {"987654321", "111222333"};
             Employee amickiewicz = new Employee(1, "Adam", "Mickiewicz", phoneNumbers1, new DateTime(2020, 6, 20), 35);
