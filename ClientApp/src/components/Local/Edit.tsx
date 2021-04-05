@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LOCALS_API_URL } from '../../constants';
 import './Local.css';
 
 const Counter: React.FC<{}> = () => {
-    return (
+    let { id } = useParams<{ id: string }>();
+    const [local, setLocal] = useState<any>(null);
+
+    useEffect(() => {
+      fetchLocal().then(local => setLocal(local))
+    }, [])
+
+    const fetchLocal = async () => {
+        const response = await fetch(`${LOCALS_API_URL}/${id}`)
+        return await response.json()
+    }
+
+    return local ? (
       <div>
-        <h1>Add a new local</h1>
+        <h1>Edit a local</h1>
         <Formik
           initialValues={{
-            address: { street: '', apartmentNumber: '', city: '', zipCode: '' },
-            nrOfTables: 1
+            address: { street: local.address.street, apartmentNumber: local.address.apartmentNumber, city: local.address.city, zipCode: local.address.zipCode },
+            nrOfTables: local.nrOfTables
           }}
           // validate={values => {
           //   const errors = { address: {}} as any;
@@ -83,7 +96,7 @@ const Counter: React.FC<{}> = () => {
           )}
         </Formik>
      </div>
-    )
+    ) : <p>Loading...</p>
 }
 
 export default Counter;

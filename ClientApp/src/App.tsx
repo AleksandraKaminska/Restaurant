@@ -3,6 +3,7 @@ import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import NewLocal from './components/Local/New';
+import EditLocal from './components/Local/Edit';
 import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
@@ -17,7 +18,8 @@ export default class App extends Component {
       <Layout>
         <Route exact path='/' component={Home} />
         <AuthorizeRoute path='/locals' exact component={List} />
-        <AuthorizeRoute path='/locals/new' component={NewLocal} />
+        <AuthorizeRoute exact path='/locals/:id/edit' component={EditLocal} />
+        <AuthorizeRoute exact path='/locals/new' component={NewLocal} />
         <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
       </Layout>
     );

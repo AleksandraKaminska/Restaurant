@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { LOCALS_API_URL } from '../../constants';
 import { FiTrash2, FiEdit2 } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import './Local.css';
 
 const List: React.FC<{}> = () => {
     const [locals, setLocals] = useState<Array<any>>([]);
 
     useEffect(() => {
-      fetchAllLocals()
-        .then(locals => setLocals(locals))
+      fetchAllLocals().then(locals => setLocals(locals))
     }, [])
 
     const fetchAllLocals = async () => {
       const response = await fetch(LOCALS_API_URL)
-      const json = await response.json()
-      return json
+      return await response.json()
     }
 
     const handleRemove = (id: number) => {
@@ -26,17 +25,9 @@ const List: React.FC<{}> = () => {
             'Content-Type': 'application/json'
           }
         })
-          .then(res => {
-            console.log(res)
-            fetchAllLocals()
-              .then(locals => setLocals(locals))
-          })
+          .then(res => fetchAllLocals().then(locals => setLocals(locals)))
           .catch(err => console.log(err));
       }
-    }
-
-    const handleEdit = () => {
-
     }
 
     return (
@@ -67,9 +58,9 @@ const List: React.FC<{}> = () => {
                   <button className="btn btn-outline-danger" onClick={() => handleRemove(local.id)}>
                     <FiTrash2 />
                   </button>
-                  <button className="btn btn-outline-primary ml-2" onClick={handleEdit}>
+                  <Link to={`/locals/${local.id}/edit`} className="btn btn-outline-primary ml-2">
                     <FiEdit2 />
-                  </button>
+                  </Link>
                 </td>
               </tr>
             ))}
