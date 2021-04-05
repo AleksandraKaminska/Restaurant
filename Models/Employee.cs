@@ -27,7 +27,7 @@ namespace Restaurant.Models
         }
     }
 
-        public Employee(int id, string firstName, string lastName, List<string> phoneNumbers, DateTime employmentDate, double hourlyRate)
+    public Employee(int id, string firstName, string lastName, List<string> phoneNumbers, DateTime employmentDate, double hourlyRate)
     {
       Id = id;
       FirstName = firstName;
@@ -49,6 +49,18 @@ namespace Restaurant.Models
 
     public double GetSalary(int hours, double tips = 0) {
       return hours * HourlyRate + tips;
+    }
+
+    public void ShowExtent()
+    {
+        Console.WriteLine($"Extenet of the class: {nameof(Employee)}");
+        int count = 0;
+
+        foreach (Employee emp in Extent[this.GetType()])
+        {
+            Console.WriteLine($"----- Employee: {++count} ------");
+            Console.WriteLine(emp.ToString());
+        }
     }
 
     public override string ToString()

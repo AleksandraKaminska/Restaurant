@@ -64,8 +64,14 @@ namespace Restaurant
             Employee amickiewicz = new Employee(1, "Adam", "Mickiewicz", phoneNumbers1, new DateTime(2020, 6, 20), 35);
             Employee jslowacki = new Employee(2, "Juliusz", "Słowacki", phoneNumbers2, new DateTime(2020, 9, 11), 30.5);
 
+            amickiewicz.ShowExtent();
+
             Menu menu = new Menu(new List<Meal>());
             menu.PrintMenu();
+
+            var fileName = "TextFile.txt";
+            ObjectPlus.SerializeToFile(fileName);
+            ObjectPlus.DeserializeFromFile(fileName);
 
             CreateHostBuilder(args).Build().Run();
         }
