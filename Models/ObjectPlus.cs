@@ -1,61 +1,53 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
-using Newtonsoft.Json;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Restaurant.Models
 {
-  public class ObjectPlus
-  {
-    static string JsonFileName { get { return Path.Combine(Path.GetTempPath(), "dictionary.json"); } }
-    static JsonSerializerSettings JsonSettings { get { return new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto, Formatting = Formatting.Indented }; } }
-    private static Dictionary<Type, List<Object>> _extents = new Dictionary<Type, List<Object>>();
-    public static void SerializeDictionary()
+    [Serializable]
+    public abstract class ObjectPlus
     {
-      var path = JsonFileName;
-      using (var stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read))
-      using (var writer = new StreamWriter(stream))
-      {
-        var serializer = JsonSerializer.CreateDefault(JsonSettings);
-        serializer.Serialize(writer, _extents);
-      }
-    }
-    public static void DeserializeDictionary()
-    {
-      var path = JsonFileName;
-      try
-      {
-        using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
-        using (var reader = new StreamReader(stream))
-        using (var jsonReader = new JsonTextReader(reader))
+        private static Dictionary<Type, ICollection<ObjectPlus>> _extent = new Dictionary<Type, ICollection<ObjectPlus>>();
+
+        public ObjectPlus()
         {
-          var serializer = JsonSerializer.CreateDefault(JsonSettings);
-          _extents = serializer.Deserialize<Dictionary<Type, List<Object>>>(jsonReader);
+            if (!_extent.ContainsKey(GetType()))
+                _extent.Add(GetType(), new List<ObjectPlus>());
+
+            _extent[GetType()].Add(this);
         }
-      }
-      catch (FileNotFoundException)
-      {
-        // File was not created yet, dictionary should be empty.
-        _extents.Clear();
-      }
+
+        public static Dictionary<Type, IEnumerable<ObjectPlus>> Extent
+        {
+            get
+            {
+                var result = new Dictionary<Type, IEnumerable<ObjectPlus>>();
+                foreach (var k in _extent)
+                    result.Add(k.Key, k.Value.ToImmutableList());
+
+                return result;
+            }
+        }
+
+        public static void SerializeToFile(string fileName)
+        {
+            var dictForSerialization = _extent.ToDictionary(x => x.Key.FullName, x => x.Value);
+
+            using Stream stream = File.Open(fileName, FileMode.Create);
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, dictForSerialization);
+        }
+
+        public static void DeserializeFromFile(string fileName)
+        {
+            using Stream stream = File.Open(fileName, FileMode.Open);
+            BinaryFormatter formatter = new BinaryFormatter();
+            var deserializedDictionary = (Dictionary<string, ICollection<ObjectPlus>>)formatter.Deserialize(stream);
+
+            _extent = deserializedDictionary.ToDictionary(x => Type.GetType(x.Key), x => x.Value);
+        }
     }
-    public static List<Object> GetExtent(Type className)
-    {
-      List<Object> list = _extents[className];
-      return list;
-    }
-    public static void AddEkstensja<T>(T obj)
-    {
-      List<Object> list;
-      if (!_extents.TryGetValue(obj.GetType(), out list))
-        list = _extents[obj.GetType()] = new List<object>();
-      list.Add(obj);
-    }
-    internal static string ShowJsonContents()
-    {
-      if (!File.Exists(JsonFileName))
-        return string.Empty;
-      return File.ReadAllText(JsonFileName);
-    }
-  }
 }

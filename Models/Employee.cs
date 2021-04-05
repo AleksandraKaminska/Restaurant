@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Restaurant.Models
 {
-  public class Employee
+  public class Employee : ObjectPlus
   {
     public int Id { get; set; }
     public string FirstName { get; set; }
@@ -15,11 +12,22 @@ namespace Restaurant.Models
     public List<string> PhoneNumbers { get; set; }
     public DateTime EmploymentDate  { get; set; }
     public double HourlyRate { get; set; }
-    // atrybut klasowy
-    public static double MaxHourlyRate = 45.00;
-    public static IList<Employee> Extent = new List<Employee>();
 
-    public Employee(int id, string firstName, string lastName, List<string> phoneNumbers, DateTime employmentDate, double hourlyRate)
+    private static double? _maxHourlyRate;
+    // atrybut klasowy
+    private static double MaxHourlyRate
+    {
+        get => _maxHourlyRate ?? 45.00;
+        set
+        {
+            if (value <= 0)
+                throw new ArgumentException("Tax rate cannot be equal or less than 0");
+
+            _maxHourlyRate = value;
+        }
+    }
+
+        public Employee(int id, string firstName, string lastName, List<string> phoneNumbers, DateTime employmentDate, double hourlyRate)
     {
       Id = id;
       FirstName = firstName;
@@ -37,53 +45,15 @@ namespace Restaurant.Models
       {
         throw new ArgumentException("The hourly rate value must be lower than the maximum hourly rate", nameof(hourlyRate));
       }
-
-      AddEmployee(this);
     }
 
-    public double getSalary(int hours, double tips = 0) {
+    public double GetSalary(int hours, double tips = 0) {
       return hours * HourlyRate + tips;
-    }
-
-    private static void AddEmployee(Employee employee)
-    {
-      Extent.Add(employee);
-    }
-
-    private static void RemoveEmployee(Employee employee)
-    {
-      Extent.Remove(employee);
-    }
-
-    // metoda klasowa
-    public static void ShowExtent()
-    {
-      Console.WriteLine("Extent of the class: " + typeof(Employee));
-
-      foreach (Employee employee in Extent)
-      {
-        Console.WriteLine(employee.ToString());
-      }
-    }
-
-    public static void WriteExtent(Stream stream)
-    {
-      IFormatter formatter = new BinaryFormatter();
-      formatter.Serialize(stream, Extent);
-    }
-
-    public static void ReadExtent(Stream stream)
-    {
-      IFormatter formatter = new BinaryFormatter();
-      List<Employee> people = (List<Employee>)formatter.Deserialize(stream);
-
-      Employee.Extent = people;
     }
 
     public override string ToString()
     {
       return $"{FirstName} {LastName}: {Id}";
     }
-
   }
 }

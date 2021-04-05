@@ -64,8 +64,6 @@ namespace Restaurant
             Employee amickiewicz = new Employee(1, "Adam", "Mickiewicz", phoneNumbers1, new DateTime(2020, 6, 20), 35);
             Employee jslowacki = new Employee(2, "Juliusz", "Słowacki", phoneNumbers2, new DateTime(2020, 9, 11), 30.5);
 
-            Employee.ShowExtent();
-
             Menu menu = new Menu(new List<Meal>());
             menu.PrintMenu();
 
