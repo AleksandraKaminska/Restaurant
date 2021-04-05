@@ -57,25 +57,14 @@ namespace Restaurant
 
 
             /*
-            * - atrybut powtarzalny
-            */
-            Register register = new Register();
-            register.AddInvoice(generateRandomInvoice());
-            register.AddInvoice(generateRandomInvoice());
-
-            Employee employee = new Employee("John", "Doe");
-
-            // atrybut złożony
-            Client client = new Client("Jan", "Kowalski");
-            client.taxId = 123456;
-
-            /*
             * Trwała ekstensja
             */
-            Person amickiewicz = new Person("Adam", "Mickiewicz");
-            Person jslowacki = new Person("Juliusz", "Słowacki");
+            var phoneNumbers1 = new List<string> {"123456789"};
+            var phoneNumbers2 = new List<string> {"987654321"};
+            Employee amickiewicz = new Employee(1, "Adam", "Mickiewicz", phoneNumbers1, new DateTime(2020, 6, 20), 35);
+            Employee jslowacki = new Employee(2, "Juliusz", "Słowacki", phoneNumbers2, new DateTime(2020, 9, 11), 30.5);
 
-            Person.ShowExtent();
+            Employee.ShowExtent();
 
             Menu menu = new Menu(new List<Meal>());
             menu.PrintMenu();
@@ -83,27 +72,6 @@ namespace Restaurant
             CreateHostBuilder(args).Build().Run();
         }
 
-        private static Invoice generateRandomInvoice()
-        {
-            int recipientTaxId = random.Next(1, 100);
-            int recepeeTaxId = random.Next(1, 100);
-
-            List<Meal> orderedMeals = new List<Meal>();
-
-            Ingridient.WarehouseAddress = new Address("Random Street", "Random City", "12-122");
-            Console.WriteLine("Warehouse Address");
-            Console.WriteLine(Ingridient.ShowWarehouseAddress());
-            var ingridient = new Ingridient("Potatoe", 12);
-            var ingridients = new List<Ingridient>();
-            ingridients.Add(ingridient);
-
-            // atrybut klasowy
-            var meal = new Meal(ingridients, "Potatoe soup");
-
-            orderedMeals.Add(meal);
-
-            return new Invoice(recipientTaxId, recepeeTaxId, orderedMeals);
-        }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

@@ -14,21 +14,5 @@ namespace Restaurant.Models
     {
       Name = name;
     }
-
-    // atrybut pochodny
-    public double price
-    {
-      get
-      {
-        var ingridientsPriceSum = 0;
-
-        foreach (Ingridient ingridient in ingridients)
-        {
-          ingridientsPriceSum += ingridient.Price;
-        }
-
-        return (1 + tax) * ingridientsPriceSum;
-      }
-    }
   }
 }
