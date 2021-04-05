@@ -44,8 +44,8 @@ const Counter: React.FC<{}> = () => {
           // }}
           onSubmit={(values, { setSubmitting }) =>
           {
-            fetch(LOCALS_API_URL, {
-                method: 'post',
+            fetch(`${LOCALS_API_URL}/${id}`, {
+                method: 'put',
                 headers: {
                     'Content-Type': 'application/json'
                 },
