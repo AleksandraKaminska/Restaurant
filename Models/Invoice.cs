@@ -33,7 +33,6 @@ namespace Restaurant.Models
       }
     }
 
-    // przesłonięcie
     public override string ToString()
     {
       return $"Recipient: {recipientTaxId}, recepee: {recepeeTaxId}, price: {price}";

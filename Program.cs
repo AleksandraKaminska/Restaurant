@@ -16,61 +16,43 @@ namespace Restaurant
 {
     public class Program
     {
-        private static Random random = new Random();
-
-        // • Ekstensja ✅
-        // • Ekst. - trwałość
-        // • Atr.złożony ✅
-        // • Atr.opcjonalny ✅
-        // • Atr.powt ✅
-        // • Atr.klasowy ✅
-        // • Atr.pochodny ✅
-        // • Met.klasowa
-        // • Przesłonięcie ✅
-        // • przeciążenie ✅
-
         public static void Main(string[] args)
         {
+            var fileName = "extents.json";
 
             /*
-            * - atrybut opcjonalny
-            */
-            Address address1 = new Address("Street 1", "City 1", "12-122");
-            Address address2 = new Address("Street 2", "City 2", "13-133");
+             * - atrybut opcjonalny
+             */
+            var address1 = new Address("Street 1", "City 1", "12-122");
+            var address2 = new Address("Street 2", "City 2", "13-133", "5a");
+
+            new Local(99, address1, 30);
+            new Local(100, address2, 40);
 
             /*
-            * - ekstensja
-            */
-            Local local = new Local(99, address1, 30);
-            Local local1 = new Local(100, address2, 40);
-
+             * - ekstensja
+             */
             Local.ShowExtent();
-
-            int recipientTaxId = 0;
-            int recepeeTaxId = 1;
-            List<Meal> orderedMeals = new List<Meal>();
-
-            /*
-            * - atrybut pochodny
-            */
-            Invoice invoice = new Invoice(recipientTaxId, recepeeTaxId, orderedMeals);
-
-            var phoneNumbers1 = new List<string> {"123456789"};
-            var phoneNumbers2 = new List<string> {"987654321", "111222333"};
-            Employee amickiewicz = new Employee(1, "Adam", "Mickiewicz", phoneNumbers1, new DateTime(2020, 6, 20), 35);
-            Employee jslowacki = new Employee(2, "Juliusz", "Słowacki", phoneNumbers2, new DateTime(2020, 9, 11), 30.5);
 
             /*
              * Trwała ekstensja
-            */
-            amickiewicz.ShowExtent();
-
-            Menu menu = new Menu(new List<Meal>());
-            menu.PrintMenu();
-
-            var fileName = "extents.json";
-            ObjectPlus.SerializeDictionary(fileName);
+             */
+            
             ObjectPlus.DeserializeDictionary(fileName);
+            
+            var phoneNumbers1 = new List<string> {"123456789"};
+            var phoneNumbers2 = new List<string> {"987654321", "111222333"};
+            new Employee(1, "Adam", "Mickiewicz", phoneNumbers1, new DateTime(2020, 6, 20), 35);
+            new Employee(2, "Juliusz", "Słowacki", phoneNumbers2, new DateTime(2020, 9, 11), 30.5);
+
+            ObjectPlus.ShowExtent(typeof(Employee));
+
+            Employee.setMaxHourlyRate(50);
+            
+            // Menu menu = new Menu(new List<Meal>());
+            // menu.PrintMenu();
+
+            ObjectPlus.SerializeDictionary(fileName);
 
             CreateHostBuilder(args).Build().Run();
         }

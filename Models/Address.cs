@@ -32,7 +32,6 @@ namespace Restaurant.Models
         ApartmentNumber = apartmentNumber;
     }
 
-    // przeciążenie metody
     public void UpdateAddress(Address address)
     {
         Street = address.Street;
@@ -41,7 +40,6 @@ namespace Restaurant.Models
         ApartmentNumber = address.ApartmentNumber;
     }
 
-    // przesłonięcie
     public override string ToString()
     {
       return ApartmentNumber == null

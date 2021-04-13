@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
 
 namespace Restaurant.Models
@@ -12,34 +9,20 @@ namespace Restaurant.Models
     public abstract class ObjectPlus
     {
         private static Dictionary<Type, ICollection<ObjectPlus>> _extent = new Dictionary<Type, ICollection<ObjectPlus>>();
-        static JsonSerializerSettings JsonSettings { get { return new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto, Formatting = Formatting.Indented }; } }
+        private static JsonSerializerSettings JsonSettings { get { return new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto, Formatting = Formatting.Indented }; } } 
+        private static JsonSerializer _serializer = JsonSerializer.CreateDefault(JsonSettings);
 
         public ObjectPlus()
         {
-            if (!_extent.ContainsKey(GetType()))
-                _extent.Add(GetType(), new List<ObjectPlus>());
-
+            FillEmptyTypeExtent(GetType());
             _extent[GetType()].Add(this);
-        }
-
-        public static Dictionary<Type, IEnumerable<ObjectPlus>> Extent
-        {
-            get
-            {
-                var result = new Dictionary<Type, IEnumerable<ObjectPlus>>();
-                foreach (var k in _extent)
-                    result.Add(k.Key, k.Value.ToImmutableList());
-
-                return result;
-            }
         }
 
         public static void SerializeDictionary(string fileName)
         {
             using var stream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.Read);
             using var writer = new StreamWriter(stream);
-            var serializer = JsonSerializer.CreateDefault(JsonSettings);
-            serializer.Serialize(writer, _extent);
+            _serializer.Serialize(writer, _extent);
         }
 
         public static void DeserializeDictionary(string fileName)
@@ -49,25 +32,36 @@ namespace Restaurant.Models
                 using var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
                 using var reader = new StreamReader(stream);
                 using var jsonReader = new JsonTextReader(reader);
-                var serializer = JsonSerializer.CreateDefault(JsonSettings);
-                _extent = serializer.Deserialize<Dictionary<Type, ICollection<ObjectPlus>>>(jsonReader);
+                _extent = _serializer.Deserialize<Dictionary<Type, ICollection<ObjectPlus>>>(jsonReader);
             }
             catch (FileNotFoundException)
             {
                 _extent.Clear();
             }
         }
-
-        public void ShowExtent()
+        
+        public static ICollection<ObjectPlus> GetExtent(Type className)
         {
-          Console.WriteLine($"Extent of the class: {nameof(Employee)}");
-          int count = 0;
+            FillEmptyTypeExtent(className);
+            return _extent[className];
+        }
 
-          foreach (ObjectPlus obj in Extent[this.GetType()])
-          {
-            Console.WriteLine($"----- {nameof(Employee)}: {++count} ------");
-            Console.WriteLine(obj.ToString());
-          }
+        public static void ShowExtent(Type className)
+        {
+            Console.WriteLine($"====== Show extent: {className} ======");
+
+            foreach (ObjectPlus obj in GetExtent(className))
+            {
+                Console.WriteLine(obj.ToString());
+            }
+        }
+
+        private static void FillEmptyTypeExtent(Type className)
+        {
+            if (!_extent.ContainsKey(className))
+            {
+                _extent.Add(className, new List<ObjectPlus>());
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Restaurant.Models
     public int NrOfTables { get; set; }
 
     // ekstensja klasy
-    static List<Local> allLocals = new List<Local>();
+    private static List<Local> allLocals = new List<Local>();
 
     public Local()
     {
@@ -40,7 +40,6 @@ namespace Restaurant.Models
       allLocals.Remove(restaurant);
     }
 
-    // metoda klasowa
     public static void ShowExtent()
     {
       Console.WriteLine("Extent of the class: " + typeof(Local));
