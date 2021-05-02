@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Restaurant.Models
 {
@@ -17,10 +16,7 @@ namespace Restaurant.Models
     // ekstensja klasy
     private static List<Local> allLocals = new List<Local>();
 
-    public Local()
-    {
-      AddLocal(this);
-    }
+    private readonly List<Employee> _employeesList = new List<Employee>(); // implementation of the association
 
     public Local(int id, Address address, int nrOfTables)
     {
@@ -30,7 +26,7 @@ namespace Restaurant.Models
       AddLocal(this);
     }
 
-    public static void AddLocal(Local restaurant)
+    private static void AddLocal(Local restaurant)
     {
       allLocals.Add(restaurant);
     }
@@ -38,6 +34,38 @@ namespace Restaurant.Models
     public static void RemoveLocal(Local restaurant)
     {
       allLocals.Remove(restaurant);
+    }
+    
+    public void AddEmployee(Employee employee)
+    {
+      if (_employeesList.Contains(employee))
+      {
+        return;
+      }
+
+      var local = employee.GetLocal();
+      if (local == null || local == this)
+      {
+        _employeesList.Add(employee);
+                
+        // add the reserve connection
+        employee.SetLocal(this);
+      } else
+      {
+        throw new Exception("The employee works in another local");
+      }
+    }
+    
+    public void RemoveEmployee(Employee employee)
+    {
+      if (_employeesList.Contains(employee))
+      {
+        _employeesList.Remove(employee);
+        employee.RemoveLocal();
+      } else
+      {
+        Console.WriteLine("Employee not found");
+      }
     }
 
     public static void ShowExtent()
@@ -51,7 +79,7 @@ namespace Restaurant.Models
     }
 
     public override string ToString() {
-      return $"Local {Id}: {Address}, nr of tables: {NrOfTables}";
+      return $"Local {Id}: {Address},{Environment.NewLine}nr of tables: {NrOfTables},{Environment.NewLine}employess: {string.Join("", _employeesList)}";
     }
   }
 }

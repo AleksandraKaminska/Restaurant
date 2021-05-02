@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Restaurant.Models
 {
@@ -14,7 +12,7 @@ namespace Restaurant.Models
     public Meal(List<Ingridient> ingridients, string name)
     {
       this.ingridients = ingridients;
-      this.Name = name;
+      Name = name;
     }
 
     // atrybut pochodny

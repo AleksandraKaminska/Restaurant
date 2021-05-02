@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Restaurant.Models
 {
   public class Ingridient
@@ -14,8 +10,8 @@ namespace Restaurant.Models
 
     public Ingridient(string name, int price)
     {
-      this.Name = name;
-      this.Price = price;
+      Name = name;
+      Price = price;
     }
 
     public static string ShowWarehouseAddress()

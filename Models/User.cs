@@ -1,4 +1,3 @@
-using System;
 namespace Restaurant.Models
 {
   public class User

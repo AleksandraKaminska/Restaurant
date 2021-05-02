@@ -1,17 +1,17 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Models
 {
   [Serializable]
   public class Address
   {
-    // [Required]
+    [Required]
     public string Street { get; set; }
-    // [Required]
+    [Required]
     public string City { get; set; }
-    // [Required]
+    [Required]
     public string ZipCode { get; set; }
-    // [Optional]
     public string ApartmentNumber { get; set; }
 
     // apartmentNumber - atrybut opcjonalny

@@ -1,5 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using Restaurant.Models;
+﻿@using Restaurant.Models
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -16,10 +16,10 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+            <a class="nav-link text-dark" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
         </li>
         <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
+            <form class="form-inline" asp-page="/Account/Logout" asp-route-returnUrl="/">
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>
@@ -27,10 +27,10 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Register</a>
+            <a class="nav-link text-dark" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login"asp-route-returnUrl="@returnUrl">Login</a>
+            <a class="nav-link text-dark" asp-page="/Account/Login"asp-route-returnUrl="@returnUrl">Login</a>
         </li>
     }
 </ul>

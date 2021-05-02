@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace Restaurant.Models
 {
-    public class Employee : ObjectPlus
+    public abstract class Employee : ObjectPlus
     {
+        private static int Count = 1;
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -15,10 +16,12 @@ namespace Restaurant.Models
 
         // atrybut klasowy
         private static double maxHourlyRate = 45.00;
+        
+        private Local _local;
 
-        public Employee(int id, string firstName, string lastName, List<string> phoneNumbers, DateTime employmentDate, double hourlyRate)
+        public Employee(string firstName, string lastName, List<string> phoneNumbers, DateTime employmentDate, double hourlyRate)
         {
-            Id = id;
+            Id = Count++;
             FirstName = firstName;
             LastName = lastName;
             EmploymentDate = employmentDate;
@@ -34,11 +37,6 @@ namespace Restaurant.Models
             {
                 throw new ArgumentException("The hourly rate value must be lower than the maximum hourly rate", nameof(hourlyRate));
             }
-        }
-
-        public Employee()
-        {
-            
         }
 
         // atrybut pochodny
@@ -59,6 +57,21 @@ namespace Restaurant.Models
                 throw new ArgumentException("Hourly rate cannot be equal or less than 0");
 
             maxHourlyRate = value;
+        }
+        
+        public void SetLocal(Local local)
+        {
+            _local = local;
+        }
+        
+        public Local GetLocal()
+        {
+            return _local;
+        }
+        
+        public void RemoveLocal()
+        {
+            _local = null;
         }
 
         public virtual int GetOvertime(int overtime)

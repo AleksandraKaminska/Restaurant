@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Models;
@@ -63,10 +61,6 @@ namespace Restaurant.Controllers
     {
       localService.Delete(id);
       return NoContent();
-    }
-    public override NoContentResult NoContent()
-    {
-      return base.NoContent();
     }
   }
 }
