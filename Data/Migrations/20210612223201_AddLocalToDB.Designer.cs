@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant.Data;
 
 namespace Restaurant.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210612223201_AddLocalToDB")]
+    partial class AddLocalToDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -329,43 +331,6 @@ namespace Restaurant.Data.Migrations
                     b.ToTable("Local");
                 });
 
-            modelBuilder.Entity("Restaurant.Models.Menu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Menu");
-                });
-
-            modelBuilder.Entity("Restaurant.Models.MenuItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(300)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("MenuId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MenuId");
-
-                    b.ToTable("MenuItem");
-                });
-
             modelBuilder.Entity("Restaurant.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -434,12 +399,6 @@ namespace Restaurant.Data.Migrations
 
             modelBuilder.Entity("Restaurant.Models.Local", b =>
                 {
-                    b.HasOne("Restaurant.Models.Menu", "Menu")
-                        .WithOne("Local")
-                        .HasForeignKey("Restaurant.Models.Local", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.OwnsOne("Restaurant.Models.Address", "Address", b1 =>
                         {
                             b1.Property<int>("LocalId")
@@ -469,22 +428,6 @@ namespace Restaurant.Data.Migrations
                         });
 
                     b.Navigation("Address");
-
-                    b.Navigation("Menu");
-                });
-
-            modelBuilder.Entity("Restaurant.Models.MenuItem", b =>
-                {
-                    b.HasOne("Restaurant.Models.Menu", null)
-                        .WithMany("MenuItems")
-                        .HasForeignKey("MenuId");
-                });
-
-            modelBuilder.Entity("Restaurant.Models.Menu", b =>
-                {
-                    b.Navigation("Local");
-
-                    b.Navigation("MenuItems");
                 });
 #pragma warning restore 612, 618
         }

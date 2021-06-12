@@ -12,6 +12,8 @@ namespace Restaurant.Models
         [MaxLength(300)]
         public string Description { get; set; }
         public double Price { get; set; }
+
+        private Menu Menu { get; }
         
         private readonly List<OrderMenuItem> _orderMenuItemList = new List<OrderMenuItem>();
         

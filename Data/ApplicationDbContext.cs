@@ -18,6 +18,8 @@ namespace Restaurant.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new OrderEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LocalEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MenuEntityTypeConfiguration());
             // modelBuilder.ApplyConfiguration(new WaiterEntityTypeConfiguration());
             // modelBuilder.ApplyConfiguration(new ChefEntityTypeConfiguration());
             // modelBuilder.ApplyConfiguration(new BillEntityTypeConfiguration());

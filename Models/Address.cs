@@ -1,9 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Restaurant.Models
 {
-  [Serializable]
+  [ComplexType]
   public class Address
   {
     [Required]
@@ -14,7 +15,6 @@ namespace Restaurant.Models
     public string ZipCode { get; set; }
     public string ApartmentNumber { get; set; }
 
-    // apartmentNumber - atrybut opcjonalny
     public Address(string street, string city, string zipCode, string apartmentNumber = null)
     {
         Street = street;
@@ -23,7 +23,6 @@ namespace Restaurant.Models
         ApartmentNumber = apartmentNumber;
     }
 
-    // apartmentNumber - atrybut opcjonalny
     public void UpdateAddress(string street, string city, string zipCode, string apartmentNumber = null)
     {
         Street = street;

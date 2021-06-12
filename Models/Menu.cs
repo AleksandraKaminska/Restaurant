@@ -5,28 +5,26 @@ namespace Restaurant.Models
 {
   public class Menu
   {
-    public List<Meal> meals { get; }
-    public static double fee { get; set; } = .2;
+    public List<MenuItem> MenuItems { get; }
 
-    public Menu(List<Meal> meals)
+    public Local Local { get; set; }
+    
+    public int Id { get; set; }
+    
+    public Menu()
     {
-      this.meals = meals;
+    }
+    
+    public Menu(int id)
+    {
+      Id = id;
     }
 
     public void PrintMenu()
     {
-      foreach (Meal meal in meals)
+      foreach (MenuItem menuItem in MenuItems)
       {
-        Console.WriteLine(meal.Name + " " + meal.price);
-      }
-    }
-
-    // Przeciążenie
-    public void PrintMenu(double tip)
-    {
-      foreach (Meal meal in meals)
-      {
-        Console.WriteLine(meal.Name + " " + meal.price * fee);
+        Console.WriteLine(menuItem.Title + " " + menuItem.Price);
       }
     }
   }

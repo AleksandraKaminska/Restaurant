@@ -55,6 +55,7 @@ namespace Restaurant.Controllers
       localService.Update(id, local);
       return NoContent();
     }
+    
     // DELETE api/locals/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)

@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Models
 {
   public class Local
   {
-    // [Required]
     public int Id { get; set; }
-    // atrybut złożony
-    // [Required]
     public Address Address { get; set; }
-    // [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
+    [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
     public int NrOfTables { get; set; }
 
     // ekstensja klasy
@@ -18,6 +16,12 @@ namespace Restaurant.Models
 
     private readonly List<Employee> _employeesList = new List<Employee>(); // implementation of the association
 
+    public Menu Menu { get; set; }
+    public Local()
+    {
+      
+    }
+    
     public Local(int id, Address address, int nrOfTables)
     {
       Id = id;
