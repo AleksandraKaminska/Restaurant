@@ -14,7 +14,7 @@ namespace Restaurant.Models
     // ekstensja klasy
     private static List<Local> allLocals = new List<Local>();
 
-    private readonly List<Employee> _employeesList = new List<Employee>(); // implementation of the association
+    public List<Employee> Employees { get; set; }
 
     public Menu Menu { get; set; }
     public Local()
@@ -42,7 +42,7 @@ namespace Restaurant.Models
     
     public void AddEmployee(Employee employee)
     {
-      if (_employeesList.Contains(employee))
+      if (Employees.Contains(employee))
       {
         return;
       }
@@ -50,7 +50,7 @@ namespace Restaurant.Models
       var local = employee.GetLocal();
       if (local == null || local == this)
       {
-        _employeesList.Add(employee);
+        Employees.Add(employee);
                 
         // add the reserve connection
         employee.SetLocal(this);
@@ -62,9 +62,9 @@ namespace Restaurant.Models
     
     public void RemoveEmployee(Employee employee)
     {
-      if (_employeesList.Contains(employee))
+      if (Employees.Contains(employee))
       {
-        _employeesList.Remove(employee);
+        Employees.Remove(employee);
         employee.RemoveLocal();
       } else
       {
@@ -83,7 +83,7 @@ namespace Restaurant.Models
     }
 
     public override string ToString() {
-      return $"Local {Id}: {Address},{Environment.NewLine}nr of tables: {NrOfTables},{Environment.NewLine}employess: {string.Join("", _employeesList)}";
+      return $"Local {Id}: {Address},{Environment.NewLine}nr of tables: {NrOfTables},{Environment.NewLine}employess: {string.Join("", Employees)}";
     }
   }
 }

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace Restaurant.Models
 {
-    public abstract class Employee : ObjectPlus
+    public abstract class Employee
     {
-        private static int Count = 1;
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -17,11 +16,15 @@ namespace Restaurant.Models
         // atrybut klasowy
         private static double maxHourlyRate = 45.00;
         
-        private Local _local;
+        public Local Local { get; set; }
+
+        public Employee()
+        {
+            
+        }
 
         public Employee(string firstName, string lastName, List<string> phoneNumbers, DateTime employmentDate, double hourlyRate)
         {
-            Id = Count++;
             FirstName = firstName;
             LastName = lastName;
             EmploymentDate = employmentDate;
@@ -61,17 +64,17 @@ namespace Restaurant.Models
         
         public void SetLocal(Local local)
         {
-            _local = local;
+            Local = local;
         }
         
         public Local GetLocal()
         {
-            return _local;
+            return Local;
         }
         
         public void RemoveLocal()
         {
-            _local = null;
+            Local = null;
         }
 
         public virtual int GetOvertime(int overtime)
