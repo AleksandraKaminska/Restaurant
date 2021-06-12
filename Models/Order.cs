@@ -7,7 +7,7 @@ namespace Restaurant.Models
     public class Order
     {
         private static int _count = 1;
-        public int Id { get; }
+        public int Id { get; set; }
         
         private readonly List<OrderMenuItem> _orderMenuItemList = new List<OrderMenuItem>();
         private Waiter _waiter;
@@ -21,7 +21,7 @@ namespace Restaurant.Models
             Done
         }
         
-        private StatusType Status { get; set; }
+        public StatusType Status { get; set; }
         
         public Order()
         {

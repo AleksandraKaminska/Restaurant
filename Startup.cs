@@ -25,6 +25,7 @@ namespace Restaurant
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<UserService>();
+            services.AddSingleton<OrderService>();
             services.AddSingleton<LocalService>();
             // services.AddCors(o => o.AddPolicy("ReactPolicy", builder =>
             // {

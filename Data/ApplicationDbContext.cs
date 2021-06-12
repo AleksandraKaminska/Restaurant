@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Restaurant.Data.EFConfigurations;
 using Restaurant.Models;
 
 namespace Restaurant.Data
@@ -12,6 +13,18 @@ namespace Restaurant.Data
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
+        }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new OrderEntityTypeConfiguration());
+            // modelBuilder.ApplyConfiguration(new WaiterEntityTypeConfiguration());
+            // modelBuilder.ApplyConfiguration(new ChefEntityTypeConfiguration());
+            // modelBuilder.ApplyConfiguration(new BillEntityTypeConfiguration());
+            // modelBuilder.ApplyConfiguration(new OrderMenuItemEntityTypeConfiguration());
+            // modelBuilder.ApplyConfiguration(new MenuItemEntityTypeConfiguration());
+            // modelBuilder.ApplyConfiguration(new TableItemEntityTypeConfiguration());
+            // modelBuilder.ApplyConfiguration(new PaymentItemEntityTypeConfiguration());
         }
     }
 }
