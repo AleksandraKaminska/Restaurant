@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {Redirect, useParams} from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LOCALS_API_URL } from '../../constants';
 import './Local.css';
@@ -7,6 +7,7 @@ import './Local.css';
 const Counter: React.FC<{}> = () => {
     let { id } = useParams<{ id: string }>();
     const [local, setLocal] = useState<any>(null);
+    const [submitted, setSubmitted] = useState<boolean>(false);
 
     useEffect(() => {
       fetchLocal().then(local => setLocal(local))
@@ -15,6 +16,10 @@ const Counter: React.FC<{}> = () => {
     const fetchLocal = async () => {
         const response = await fetch(`${LOCALS_API_URL}/${id}`)
         return await response.json()
+    }
+    
+    if (submitted) {
+        return <Redirect to='/locals' />
     }
 
     return local ? (
@@ -54,7 +59,10 @@ const Counter: React.FC<{}> = () => {
                     nrOfTables: values.nrOfTables
                 })
             })
-            .then(res => res.json())
+            .then(res => {
+                setSubmitted(true)
+                return res.json()
+            })
             .catch(err => console.log(err));
 
             setSubmitting(false);

@@ -1,42 +1,61 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Restaurant.Data;
+using Restaurant.DTOs;
 using Restaurant.Models;
 
 namespace Restaurant.Services
 {
-  public class LocalService
+  public class LocalService : ILocalService
   {
-    private static List<Local> locals = new List<Local>();
-    static LocalService()
+    public static int _counter = 1;
+    private readonly ApplicationDbContext _applicationDbContext;
+
+    public LocalService(ApplicationDbContext applicationDbContext)
     {
-    }
-    public List<Local> GetAll()
-    {
-      return locals;
-    }
-    
-    public Local GetById(int id)
-    {
-      return locals.Where(local => local.Id == id).FirstOrDefault();
+      _applicationDbContext = applicationDbContext;
     }
     
-    public Local Create(Local local)
+    public async Task<IEnumerable<Local>> GetAll()
     {
-      locals.Add(local);
-      return local;
+      var result = await _applicationDbContext.Locals.ToListAsync();
+      return result;
     }
     
-    public void Update(int id, Local local)
+    public async Task<Local> GetById(int id)
     {
-      Local found = locals.Where(n => n.Id == id).FirstOrDefault();
+      return await _applicationDbContext.Locals.FirstAsync(d => d.Id == id);
+    }
+    
+    public async Task Create(LocalRequest localRequest)
+    {
+      var local = new Local
+      {
+        Id = _counter++,
+        Address = localRequest.Address, 
+        NrOfTables = localRequest.NrOfTables, 
+      };
+      await _applicationDbContext.Locals.AddAsync(local);
+      await _applicationDbContext.SaveChangesAsync();
+    }
+    
+    public async Task Update(int id, Local local)
+    {
+      Local found = await _applicationDbContext.Locals.FirstAsync(d => d.Id == id);
       found.Address = local.Address;
       found.NrOfTables = local.NrOfTables;
+      _applicationDbContext.Update(found);
+      await _applicationDbContext.SaveChangesAsync();
     }
     
-    public void Delete(int id)
+    public async Task Delete(int id)
     {
-      locals.RemoveAll(n => n.Id == id);
+      var local = await _applicationDbContext.Locals.FirstAsync(d => d.Id == id);
+      _applicationDbContext.Locals.Remove(local);
+      await _applicationDbContext.SaveChangesAsync();
     }
   }
 }

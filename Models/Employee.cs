@@ -9,7 +9,7 @@ namespace Restaurant.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         // atrybut powtarzalny
-        public List<string> PhoneNumbers { get; set; }
+        public string[] PhoneNumbers { get; set; }
         public DateTime EmploymentDate { get; set; }
         public double HourlyRate { get; set; }
 
@@ -23,7 +23,7 @@ namespace Restaurant.Models
             
         }
 
-        public Employee(string firstName, string lastName, List<string> phoneNumbers, DateTime employmentDate, double hourlyRate)
+        public Employee(string firstName, string lastName, string[] phoneNumbers, DateTime employmentDate, double hourlyRate)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -31,7 +31,7 @@ namespace Restaurant.Models
             HourlyRate = hourlyRate;
             PhoneNumbers = phoneNumbers;
 
-            if (phoneNumbers.Count > 3)
+            if (phoneNumbers.Length > 3)
             {
                 throw new ArgumentException("Too many phone numbers. You can add max 3.", nameof(phoneNumbers));
             }

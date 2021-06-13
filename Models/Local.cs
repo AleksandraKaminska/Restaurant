@@ -10,13 +10,18 @@ namespace Restaurant.Models
     public Address Address { get; set; }
     [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
     public int NrOfTables { get; set; }
-
     public List<Employee> Employees { get; set; }
-
     public Menu Menu { get; set; }
+    
     public Local()
     {
       
+    }
+    
+    public Local(Address address, int nrOfTables)
+    {
+      Address = address;
+      NrOfTables = nrOfTables;
     }
     
     public Local(int id, Address address, int nrOfTables)

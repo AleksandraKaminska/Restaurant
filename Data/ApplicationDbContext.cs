@@ -15,8 +15,8 @@ namespace Restaurant.Data
         {
         }
         
-        public DbSet<Employee> Locals { get; set; }
-        public DbSet<Employee> Waiter { get; set; }
+        public DbSet<Local> Locals { get; set; }
+        public DbSet<Waiter> Waiter { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);

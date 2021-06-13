@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Restaurant.DTOs;
 using Restaurant.Models;
 using Restaurant.Services;
 
@@ -14,33 +14,41 @@ namespace Restaurant.Controllers
   // [EnableCors("ReactPolicy")]
   public class LocalsController : ControllerBase
   {
-    private readonly LocalService localService;
-    public LocalsController(LocalService localService)
+    private readonly ILocalService _localService;
+    
+    public LocalsController(ILocalService localService)
     {
-      this.localService = localService;
+      _localService = localService;
     }
+    
     // GET api/locals
     [HttpGet]
-    public IEnumerable<Local> Get()
+    public async Task<IActionResult> Get()
     {
-      return localService.GetAll();
+      return Ok(await _localService.GetAll());
     }
+    
     // GET api/locals/5
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
-    {
-      return Ok(localService.GetById(id));
+    public async Task<IActionResult> Get(int id) {
+      var result = await _localService.GetById(id);
+      if (result == null) {
+        return NotFound("A local with given id does not exist");
+      }
+      return Ok(result);
     }
+    
     // POST api/locals
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] Local local)
+    public async Task<IActionResult> Post([FromBody] LocalRequest local)
     {
         try
         {
             if (local == null)
                 return BadRequest();
 
-            return CreatedAtAction("Get", new { id = local.Id }, localService.Create(local));
+            await _localService.Create(local);
+            return Created("Local created successfully", local);
         }
         catch (Exception err)
         {
@@ -48,11 +56,12 @@ namespace Restaurant.Controllers
                 err);
         }
     }
+    
     // PUT api/locals/5
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] Local local)
     {
-      localService.Update(id, local);
+      await _localService.Update(id, local);
       return NoContent();
     }
     
@@ -60,7 +69,7 @@ namespace Restaurant.Controllers
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-      localService.Delete(id);
+      await _localService.Delete(id);
       return NoContent();
     }
   }

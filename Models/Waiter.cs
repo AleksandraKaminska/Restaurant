@@ -7,7 +7,7 @@ namespace Restaurant.Models
     {
         private Dictionary<int, Order> _orderQualif = new Dictionary<int, Order>();
         
-        public Waiter(string firstName, string lastName, List<string> phoneNumbers, DateTime employmentDate, double hourlyRate) 
+        public Waiter(string firstName, string lastName, string[] phoneNumbers, DateTime employmentDate, double hourlyRate) 
             : base(firstName, lastName,  phoneNumbers, employmentDate,  hourlyRate)
         {
         }
