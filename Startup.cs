@@ -27,6 +27,7 @@ namespace Restaurant
         {
             services.AddSingleton<OrderService>();
             services.AddScoped<ILocalService, LocalService>();
+            services.AddScoped<IMenuItemService, MenuItemService>();
             // services.AddCors(o => o.AddPolicy("ReactPolicy", builder =>
             // {
             //     builder.AllowAnyOrigin()

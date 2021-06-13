@@ -6,20 +6,24 @@ namespace Restaurant.Models
 {
     public class MenuItem
     {
-        private static int Count = 1;
+        [Key]
         public int Id { get; set; }
+        [MaxLength(50)]
         public string Title { get; set; }
         [MaxLength(300)]
         public string Description { get; set; }
-        public double Price { get; set; }
+        public float Price { get; set; }
 
         private Menu Menu { get; }
         
-        private readonly List<OrderMenuItem> _orderMenuItemList = new List<OrderMenuItem>();
+        private List<OrderMenuItem> OrderMenuItemList { get; set; }
         
-        public MenuItem(string title, string description, double price)
+        public MenuItem()
         {
-            Id = Count++;
+        }
+        
+        public MenuItem(string title, string description, float price)
+        {
             Title = title;
             Description = description;
             Price = price;
@@ -27,7 +31,7 @@ namespace Restaurant.Models
         
         public void AddOrder(OrderMenuItem orderMenuItem)
         {
-            if (_orderMenuItemList.Contains(orderMenuItem))
+            if (OrderMenuItemList.Contains(orderMenuItem))
             {
                 return;
             }
@@ -37,7 +41,7 @@ namespace Restaurant.Models
                 throw new Exception("Wrong data!");
             }
             
-            _orderMenuItemList.Add(orderMenuItem);
+            OrderMenuItemList.Add(orderMenuItem);
         }
         
         public override string ToString()

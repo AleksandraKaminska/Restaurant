@@ -1,19 +1,18 @@
 using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Models
 {
     public abstract class Employee
     {
+        [Key]
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        // atrybut powtarzalny
         public string[] PhoneNumbers { get; set; }
         public DateTime EmploymentDate { get; set; }
         public double HourlyRate { get; set; }
 
-        // atrybut klasowy
         private static double maxHourlyRate = 45.00;
         
         public Local Local { get; set; }
@@ -42,7 +41,6 @@ namespace Restaurant.Models
             }
         }
 
-        // atrybut pochodny
         public double GetSalary(int hours)
         {
             return hours * HourlyRate;
@@ -53,8 +51,7 @@ namespace Restaurant.Models
             return $"{FirstName} {LastName}: {Id}";
         }
 
-        // metoda klasowa
-        public static void setMaxHourlyRate(double value)
+        public static void SetMaxHourlyRate(double value)
         {
             if (value <= 0)
                 throw new ArgumentException("Hourly rate cannot be equal or less than 0");
