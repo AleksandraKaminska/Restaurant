@@ -8,7 +8,10 @@ namespace Restaurant.Data.EFConfigurations
 {
     public class EmployeeEntityTypeConfiguration : IEntityTypeConfiguration<Employee>
     {
-        public void Configure(EntityTypeBuilder<Employee> builder) {
+        public void Configure(EntityTypeBuilder<Employee> builder)
+        {
+            builder.HasDiscriminator<int>("EmployeeType")
+                .HasValue<Waiter>(1);
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
             builder.Property(e => e.FirstName).IsRequired();
