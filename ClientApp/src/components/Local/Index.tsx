@@ -40,7 +40,10 @@ const List: React.FC<{}> = () => {
             'Content-Type': 'application/json'
           }
         })
-          .then(res => fetchAllLocals().then(locals => setLocals(locals)))
+          .then(res => {
+              const newLocals = locals.filter(local => local.id !== id)
+              setLocals(newLocals)
+          })
           .catch(err => console.log(err));
       }
     }
