@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
 using Restaurant.Models;
 
 namespace Restaurant.Data.EFConfigurations
@@ -27,7 +26,6 @@ namespace Restaurant.Data.EFConfigurations
             builder.Property(e => e.PhoneNumbers).HasConversion(
                 v => string.Join(',', v),
                 v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
-            // builder.Property(e => e.PhoneNumbers);
             builder.Property(e => e.EmploymentDate).IsRequired();
             builder.Property(e => e.HourlyRate).IsRequired();
             builder.HasOne(e => e.Local)

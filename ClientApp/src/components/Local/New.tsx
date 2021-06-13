@@ -1,9 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LOCALS_API_URL } from '../../constants';
+import {Redirect} from "react-router-dom";
 import './Local.css';
 
 const Counter: React.FC<{}> = () => {
+    const [submitted, setSubmitted] = useState<boolean>(false);
+    
+    if (submitted) {
+        return <Redirect to='/locals' />
+    }
+    
     return (
       <div>
         <h1>Add a new local</h1>
@@ -41,7 +48,10 @@ const Counter: React.FC<{}> = () => {
                     nrOfTables: values.nrOfTables
                 })
             })
-            .then(res => res.json())
+            .then(res => {
+                setSubmitted(true)
+                return res.json()
+            })
             .catch(err => console.log(err));
 
             setSubmitting(false);

@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Data;
@@ -11,7 +9,6 @@ namespace Restaurant.Services
 {
   public class LocalService : ILocalService
   {
-    public static int _counter = 1;
     private readonly ApplicationDbContext _applicationDbContext;
 
     public LocalService(ApplicationDbContext applicationDbContext)
@@ -34,7 +31,6 @@ namespace Restaurant.Services
     {
       var local = new Local
       {
-        Id = _counter++,
         Address = localRequest.Address, 
         NrOfTables = localRequest.NrOfTables, 
       };

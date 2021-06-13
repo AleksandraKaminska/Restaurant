@@ -6,6 +6,7 @@ namespace Restaurant.Models
 {
   public class Local
   {
+    [Key]
     public int Id { get; set; }
     public Address Address { get; set; }
     [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]

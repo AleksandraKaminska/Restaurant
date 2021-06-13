@@ -4,16 +4,31 @@ import { FiTrash2, FiEdit2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import './Local.css';
 
+type Local = {
+    id: number
+    address: {
+        street: string
+        apartmentNumber: string
+        city: string
+        zipCode: string
+    }
+    nrOfTables: number
+}
+
 const List: React.FC<{}> = () => {
-    const [locals, setLocals] = useState<Array<any>>([]);
+    const [locals, setLocals] = useState<Array<Local>>([]);
+    const [loading, setLoading] = useState<boolean>(false)
 
     useEffect(() => {
       fetchAllLocals().then(locals => setLocals(locals))
     }, [])
-
+    
     const fetchAllLocals = async () => {
-      const response = await fetch(LOCALS_API_URL)
-      return await response.json()
+        setLoading(true)
+        const response = await fetch(LOCALS_API_URL)
+        const resp = await response.json()
+        setLoading(false)
+        return resp
     }
 
     const handleRemove = (id: number) => {
@@ -30,7 +45,7 @@ const List: React.FC<{}> = () => {
       }
     }
 
-    return (
+    return loading ? <p>Loading...</p> : (
       <div>
         <h1>All locals</h1>
         <table className="table table-hover table-striped mt-5">
@@ -42,7 +57,7 @@ const List: React.FC<{}> = () => {
               <th scope="col">City</th>
               <th scope="col">Zip code</th>
               <th scope="col">Nr of tables</th>
-              <th scope="col"></th>
+              <th scope="col" />
             </tr>
           </thead>
           <tbody>

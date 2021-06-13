@@ -7,7 +7,7 @@ import EditLocal from './components/Local/Edit';
 import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
-import List from './components/Local/List';
+import List from './components/Local/Index';
 import './custom.css'
 
 export default class App extends Component {
