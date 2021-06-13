@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { LOCALS_API_URL } from '../../constants';
 import { FiTrash2, FiEdit2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import './Local.css';
 import {NavLink} from "reactstrap";
+import './Locals.css';
 
 type Local = {
     id: number
@@ -16,7 +16,7 @@ type Local = {
     nrOfTables: number
 }
 
-const List: React.FC<{}> = () => {
+const Locals: React.FC<{}> = () => {
     const [locals, setLocals] = useState<Array<Local>>([]);
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -92,4 +92,4 @@ const List: React.FC<{}> = () => {
     )
 }
 
-export default List;
+export default Locals;

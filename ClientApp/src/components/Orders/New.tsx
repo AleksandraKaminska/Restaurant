@@ -1,56 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import {Redirect, useParams} from 'react-router-dom';
+import React, {useState} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LOCALS_API_URL } from '../../constants';
-import './Local.css';
+import {Redirect} from "react-router-dom";
+import './Orders.css';
 
-const Counter: React.FC<{}> = () => {
-    let { id } = useParams<{ id: string }>();
-    const [local, setLocal] = useState<any>(null);
+const New: React.FC<{}> = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
-
-    useEffect(() => {
-      fetchLocal().then(local => setLocal(local))
-    }, [])
-
-    const fetchLocal = async () => {
-        const response = await fetch(`${LOCALS_API_URL}/${id}`)
-        return await response.json()
-    }
     
     if (submitted) {
         return <Redirect to='/locals' />
     }
-
-    return local ? (
+    
+    return (
       <div>
-        <h1>Edit a local</h1>
+        <h1>Add a new local</h1>
         <Formik
           initialValues={{
-            address: { street: local.address.street, apartmentNumber: local.address.apartmentNumber, city: local.address.city, zipCode: local.address.zipCode },
-            nrOfTables: local.nrOfTables
+            address: { street: '', apartmentNumber: '', city: '', zipCode: '' },
+            nrOfTables: 1
           }}
-          // validate={values => {
-          //   const errors = { address: {}} as any;
-          //   // if (!values.address.street) {
-          //   //   errors.address.street = 'Required';
-          //   // }
-          //   // if (!values.address.city) {
-          //   //   errors.address.city = 'Required';
-          //   // }
-          //   // if (!values.address.zipCode) {
-          //   //   errors.address.zipCode = 'Required';
-          //   // }
-          //   // if (values.nrOfTables < 1)
-          //   // {
-          //   //   errors.nrOfTables = 'Number of tables must be greater than 0'
-          //   // }
-          //   return errors;
-          // }}
+          validate={values => {
+            const errors = { address: {}} as any;
+            if (!values.address.street) {
+              errors.address.street = 'Required';
+            }
+            if (!values.address.city) {
+              errors.address.city = 'Required';
+            }
+            if (!values.address.zipCode) {
+              errors.address.zipCode = 'Required';
+            }
+            if (values.nrOfTables < 1)
+            {
+              errors.nrOfTables = 'Number of tables must be greater than 0'
+            }
+            return errors;
+          }}
           onSubmit={(values, { setSubmitting }) =>
           {
-            fetch(`${LOCALS_API_URL}/${id}`, {
-                method: 'put',
+            fetch(LOCALS_API_URL, {
+                method: 'post',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -104,7 +93,7 @@ const Counter: React.FC<{}> = () => {
           )}
         </Formik>
      </div>
-    ) : <p>Loading...</p>
+    )
 }
 
-export default Counter;
+export default New;
