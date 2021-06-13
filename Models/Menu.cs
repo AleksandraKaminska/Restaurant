@@ -9,17 +9,12 @@ namespace Restaurant.Models
 
     public Local Local { get; set; }
     
-    public int Id { get; set; }
+    public int Id { get; }
     
     public Menu()
     {
     }
     
-    public Menu(int id)
-    {
-      Id = id;
-    }
-
     public void PrintMenu()
     {
       foreach (MenuItem menuItem in MenuItems)

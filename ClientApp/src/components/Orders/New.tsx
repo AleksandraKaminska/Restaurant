@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LOCALS_API_URL } from '../../constants';
 import {Redirect} from "react-router-dom";
-import './Orders.css';
+import './Locals.css';
 
-const New: React.FC<{}> = () => {
+const NewLocal: React.FC<{}> = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
     
     if (submitted) {
@@ -18,23 +18,6 @@ const New: React.FC<{}> = () => {
           initialValues={{
             address: { street: '', apartmentNumber: '', city: '', zipCode: '' },
             nrOfTables: 1
-          }}
-          validate={values => {
-            const errors = { address: {}} as any;
-            if (!values.address.street) {
-              errors.address.street = 'Required';
-            }
-            if (!values.address.city) {
-              errors.address.city = 'Required';
-            }
-            if (!values.address.zipCode) {
-              errors.address.zipCode = 'Required';
-            }
-            if (values.nrOfTables < 1)
-            {
-              errors.nrOfTables = 'Number of tables must be greater than 0'
-            }
-            return errors;
           }}
           onSubmit={(values, { setSubmitting }) =>
           {
@@ -96,4 +79,4 @@ const New: React.FC<{}> = () => {
     )
 }
 
-export default New;
+export default NewLocal;

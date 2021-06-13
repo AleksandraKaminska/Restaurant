@@ -7,7 +7,7 @@ namespace Restaurant.Models
   public class Local
   {
     [Key]
-    public int Id { get; set; }
+    public int Id { get; }
     public Address Address { get; set; }
     [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
     public int NrOfTables { get; set; }
@@ -19,19 +19,6 @@ namespace Restaurant.Models
       
     }
     
-    public Local(Address address, int nrOfTables)
-    {
-      Address = address;
-      NrOfTables = nrOfTables;
-    }
-    
-    public Local(int id, Address address, int nrOfTables)
-    {
-      Id = id;
-      Address = address;
-      NrOfTables = nrOfTables;
-    }
-
     // public void AddEmployee(Employee employee)
     // {
     //   if (Employees.Contains(employee))

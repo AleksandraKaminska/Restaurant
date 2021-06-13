@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import {Redirect, useParams} from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LOCALS_API_URL } from '../../constants';
-import './Orders.css';
+import './Locals.css';
 
-const Edit: React.FC<{}> = () => {
+const EditLocal: React.FC<{}> = () => {
     let { id } = useParams<{ id: string }>();
     const [local, setLocal] = useState<any>(null);
     const [submitted, setSubmitted] = useState<boolean>(false);
@@ -30,23 +30,6 @@ const Edit: React.FC<{}> = () => {
             address: { street: local.address.street, apartmentNumber: local.address.apartmentNumber, city: local.address.city, zipCode: local.address.zipCode },
             nrOfTables: local.nrOfTables
           }}
-          // validate={values => {
-          //   const errors = { address: {}} as any;
-          //   // if (!values.address.street) {
-          //   //   errors.address.street = 'Required';
-          //   // }
-          //   // if (!values.address.city) {
-          //   //   errors.address.city = 'Required';
-          //   // }
-          //   // if (!values.address.zipCode) {
-          //   //   errors.address.zipCode = 'Required';
-          //   // }
-          //   // if (values.nrOfTables < 1)
-          //   // {
-          //   //   errors.nrOfTables = 'Number of tables must be greater than 0'
-          //   // }
-          //   return errors;
-          // }}
           onSubmit={(values, { setSubmitting }) =>
           {
             fetch(`${LOCALS_API_URL}/${id}`, {
@@ -107,4 +90,4 @@ const Edit: React.FC<{}> = () => {
     ) : <p>Loading...</p>
 }
 
-export default Edit;
+export default EditLocal;
