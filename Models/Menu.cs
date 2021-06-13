@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Models
 {
@@ -9,6 +10,7 @@ namespace Restaurant.Models
 
     public Local Local { get; set; }
     
+    [Key]
     public int Id { get; }
     
     public Menu()

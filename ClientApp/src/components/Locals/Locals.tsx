@@ -77,12 +77,15 @@ const Locals: React.FC<{}> = () => {
                     <td>{local.address.zipCode}</td>
                     <td>{local.nrOfTables}</td>
                     <td>
-                      <button className="btn btn-outline-danger" onClick={() => handleRemove(local.id)}>
-                        <FiTrash2 />
-                      </button>
-                      <Link to={`/locals/${local.id}/edit`} className="btn btn-outline-primary ml-2">
-                        <FiEdit2 />
-                      </Link>
+                        <button className="btn btn-outline-danger" onClick={() => handleRemove(local.id)}>
+                            <FiTrash2 />
+                        </button>
+                        <Link to={`/locals/${local.id}/edit`} className="btn btn-outline-primary ml-2">
+                            <FiEdit2 />
+                        </Link>
+                        <Link to={`/locals/${local.id}/menu`} className="btn btn-outline-primary ml-2">
+                            Menu
+                        </Link>
                     </td>
                   </tr>
                 ))}

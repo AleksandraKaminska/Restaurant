@@ -38,6 +38,16 @@ namespace Restaurant.Controllers
       return Ok(result);
     }
     
+    // GET api/locals/5/menu
+    [HttpGet("{id}/menu")]
+    public async Task<IActionResult> GetMenu(int id) {
+      var result = await _localService.GetById(id);
+      if (result == null) {
+        return NotFound("A local with given id does not exist");
+      }
+      return Ok(result.Menu.MenuItems);
+    }
+    
     // POST api/locals
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] LocalRequest local)
