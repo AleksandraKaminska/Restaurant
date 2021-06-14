@@ -21,17 +21,16 @@ const Menu: React.FC<{}> = () => {
         setLoading(true)
         const response = await fetch(`${LOCALS_API_URL}/${id}/menu`)
         const resp = await response.json()
+        console.log(resp)
         setLoading(false)
         return resp
     }
     
-    console.log(menu)
-
     return loading ? <p>Loading...</p> : (
         <div>
             <div className={'header'}>
                 <h1>Menu</h1>
-                {/*<NavLink tag={Link} className="btn btn-primary" to="/locals/new">Add new local</NavLink>*/}
+                <NavLink tag={Link} className="btn btn-primary" to={`/locals/${id}/menu/new-item`}>Add new item</NavLink>
             </div>
         {/*    <table className="table table-hover table-striped mt-5">*/}
         {/*        <thead>*/}

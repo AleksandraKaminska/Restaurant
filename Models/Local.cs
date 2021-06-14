@@ -12,7 +12,7 @@ namespace Restaurant.Models
     [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
     public int NrOfTables { get; set; }
     public List<Employee> Employees { get; set; }
-    public Menu Menu { get; set; }
+    public virtual Menu Menu { get; set; }
     
     public Local()
     {
@@ -50,9 +50,5 @@ namespace Restaurant.Models
     //     Console.WriteLine("Employee not found");
     //   }
     // }
-
-    public override string ToString() {
-      return $"Local {Id}: {Address},{Environment.NewLine}nr of tables: {NrOfTables}";
-    }
   }
 }

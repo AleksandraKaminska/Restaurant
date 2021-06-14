@@ -14,7 +14,7 @@ namespace Restaurant.Models
         public string Description { get; set; }
         public float Price { get; set; }
 
-        private Menu Menu { get; }
+        public virtual Menu Menu { get; }
         
         private List<OrderMenuItem> OrderMenuItemList { get; set; }
         
@@ -42,11 +42,6 @@ namespace Restaurant.Models
             }
             
             OrderMenuItemList.Add(orderMenuItem);
-        }
-        
-        public override string ToString()
-        {
-            return $"{Title} - {Price}";
         }
     }
 }

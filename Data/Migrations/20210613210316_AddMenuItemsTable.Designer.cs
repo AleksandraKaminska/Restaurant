@@ -9,7 +9,7 @@ using Restaurant.Data;
 namespace Restaurant.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210613205600_AddMenuItemsTable")]
+    [Migration("20210613210316_AddMenuItemsTable")]
     partial class AddMenuItemsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -367,6 +367,7 @@ namespace Restaurant.Data.Migrations
             modelBuilder.Entity("Restaurant.Models.Menu", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

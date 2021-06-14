@@ -13,7 +13,8 @@ namespace Restaurant.Data.EFConfigurations
             builder.OwnsOne(p => p.Address);
             builder.HasOne(e => e.Menu)
                 .WithOne(p => p.Local)
-                .HasForeignKey<Menu>(p => p.Id);
+                .HasForeignKey<Menu>(p => p.Id)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

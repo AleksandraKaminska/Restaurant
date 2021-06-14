@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,15 @@ namespace Restaurant.Services
       return await _applicationDbContext.Locals.FirstAsync(d => d.Id == id);
     }
     
+    public async Task<IEnumerable<MenuItem>> GetMenu(int id)
+    {
+      var local = await _applicationDbContext.Locals
+        .Include(s => s.Menu)
+        .ThenInclude(t => t.MenuItems)
+        .FirstAsync(d => d.Id == id);
+      return local?.Menu?.MenuItems;
+    }
+    
     public async Task Create(LocalRequest localRequest)
     {
       var menu = new Menu();
@@ -36,8 +46,8 @@ namespace Restaurant.Services
         NrOfTables = localRequest.NrOfTables,
         Menu = menu
       };
-      await _applicationDbContext.Menu.AddAsync(menu);
       await _applicationDbContext.Locals.AddAsync(local);
+      await _applicationDbContext.Menu.AddAsync(menu);
       await _applicationDbContext.SaveChangesAsync();
     }
     

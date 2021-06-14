@@ -41,11 +41,11 @@ namespace Restaurant.Controllers
     // GET api/locals/5/menu
     [HttpGet("{id}/menu")]
     public async Task<IActionResult> GetMenu(int id) {
-      var result = await _localService.GetById(id);
+      var result = await _localService.GetMenu(id);
       if (result == null) {
-        return NotFound("A local with given id does not exist");
+        return NotFound();
       }
-      return Ok(result.Menu.MenuItems);
+      return Ok(result);
     }
     
     // POST api/locals

@@ -2,7 +2,7 @@
 
 namespace Restaurant.Data.Migrations
 {
-    public partial class RemoveMenuEntity : Migration
+    public partial class AddMenuItemsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace Restaurant.Data.Migrations
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "INTEGER")
-                .OldAnnotation("Sqlite:Autoincrement", true);
+                .Annotation("Sqlite:Autoincrement", true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -25,7 +25,7 @@ namespace Restaurant.Data.Migrations
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "INTEGER")
-                .Annotation("Sqlite:Autoincrement", true);
+                .OldAnnotation("Sqlite:Autoincrement", true);
         }
     }
 }

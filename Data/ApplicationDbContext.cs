@@ -26,6 +26,8 @@ namespace Restaurant.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new OrderEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LocalEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MenuEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MenuItemEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EmployeeEntityTypeConfiguration());
             // modelBuilder.ApplyConfiguration(new BillEntityTypeConfiguration());
             // modelBuilder.ApplyConfiguration(new OrderMenuItemEntityTypeConfiguration());

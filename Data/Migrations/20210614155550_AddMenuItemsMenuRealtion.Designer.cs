@@ -9,8 +9,8 @@ using Restaurant.Data;
 namespace Restaurant.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210613201750_RemoveMenuEntity")]
-    partial class RemoveMenuEntity
+    [Migration("20210614155550_AddMenuItemsMenuRealtion")]
+    partial class AddMenuItemsMenuRealtion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -367,6 +367,7 @@ namespace Restaurant.Data.Migrations
             modelBuilder.Entity("Restaurant.Models.Menu", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -384,20 +385,16 @@ namespace Restaurant.Data.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("MenuId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("Price")
+                    b.Property<float>("Price")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Title")
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MenuId");
-
-                    b.ToTable("MenuItem");
+                    b.ToTable("MenuItems");
                 });
 
             modelBuilder.Entity("Restaurant.Models.Order", b =>
@@ -530,9 +527,13 @@ namespace Restaurant.Data.Migrations
 
             modelBuilder.Entity("Restaurant.Models.MenuItem", b =>
                 {
-                    b.HasOne("Restaurant.Models.Menu", null)
+                    b.HasOne("Restaurant.Models.Menu", "Menu")
                         .WithMany("MenuItems")
-                        .HasForeignKey("MenuId");
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
                 });
 
             modelBuilder.Entity("Restaurant.Models.Local", b =>
