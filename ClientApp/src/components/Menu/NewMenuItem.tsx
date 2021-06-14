@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { MENU_ITEMS_API_URL } from '../../constants';
 import {Redirect, useParams} from "react-router-dom";
-import './Locals.css';
 
 const NewMenuItem: React.FC<{}> = () => {
     const { id } = useParams()
@@ -19,7 +18,8 @@ const NewMenuItem: React.FC<{}> = () => {
                 initialValues={{
                     title: '',
                     description: '',
-                    price: 0
+                    price: 0,
+                    category: ''
                 }}
                 onSubmit={(values, { setSubmitting }) =>
                 {
@@ -32,7 +32,8 @@ const NewMenuItem: React.FC<{}> = () => {
                             localId: id,
                             title: values.title,
                             description: values.description,
-                            price: values.price
+                            price: values.price,
+                            category: values.category
                         })
                     })
                         .then(res => {
@@ -53,13 +54,18 @@ const NewMenuItem: React.FC<{}> = () => {
                         </div>
                         <div className={`form-group ${errors.description && 'has-error'}`}>
                             <label htmlFor="description">Description *</label>
-                            <Field type="text" name="description" className="form-control" />
+                            <Field as="textarea" name="description" className="form-control" />
                             <ErrorMessage name="description" component="div" />
                         </div>
                         <div className={`form-group ${errors.price && 'has-error'}`}>
                             <label htmlFor="price">Price *</label>
                             <Field type="number" name="price" className="form-control" />
                             <ErrorMessage name="price" component="div" />
+                        </div>
+                        <div className={`form-group ${errors.category && 'has-error'}`}>
+                            <label htmlFor="category">Category *</label>
+                            <Field type="text" name="category" className="form-control" />
+                            <ErrorMessage name="category" component="div" />
                         </div>
                         <div className="form-group">
                             <button type="submit" disabled={isSubmitting} className="btn btn-primary">

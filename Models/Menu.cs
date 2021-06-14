@@ -17,13 +17,5 @@ namespace Restaurant.Models
     public Menu()
     {
     }
-    
-    public void PrintMenu()
-    {
-      foreach (MenuItem menuItem in MenuItems)
-      {
-        Console.WriteLine(menuItem.Title + " " + menuItem.Price);
-      }
-    }
   }
 }

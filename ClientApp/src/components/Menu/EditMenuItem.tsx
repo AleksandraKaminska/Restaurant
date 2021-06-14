@@ -3,7 +3,6 @@ import {Redirect, useParams} from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { MENU_ITEMS_API_URL} from '../../constants';
 import {MenuItem} from "./Menu";
-import './Locals.css';
 
 const EditMenuItem: React.FC<{}> = () => {
     let { id, itemId } = useParams<{ id: string, itemId: string }>();
@@ -11,13 +10,13 @@ const EditMenuItem: React.FC<{}> = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     useEffect(() => {
-      fetchMenuItem().then(item => setItem(item))
-    }, [])
-
-    const fetchMenuItem = async () => {
-        const response = await fetch(`${MENU_ITEMS_API_URL}/${itemId}`)
-        return await response.json()
-    }
+        const fetchMenuItem = async () => {
+            const response = await fetch(`${MENU_ITEMS_API_URL}/${itemId}`)
+            return await response.json()
+        }
+        
+        fetchMenuItem().then(item => setItem(item))
+    }, [itemId])
     
     if (submitted) {
         return <Redirect to={`/locals/${id}/menu`} />
@@ -31,6 +30,7 @@ const EditMenuItem: React.FC<{}> = () => {
               title: item.title,
               description: item.description,
               price: item.price,
+              category: item.category
           }}
           onSubmit={(values, { setSubmitting }) =>
           {
@@ -42,7 +42,8 @@ const EditMenuItem: React.FC<{}> = () => {
                 body: JSON.stringify({
                     title: values.title,
                     description: values.description,
-                    price: values.price
+                    price: values.price,
+                    category: values.category
                 })
             })
             .then(res => {
@@ -70,6 +71,11 @@ const EditMenuItem: React.FC<{}> = () => {
                     <label htmlFor="price">Price *</label>
                     <Field type="number" name="price" className="form-control" />
                     <ErrorMessage name="price" component="div" />
+                </div>
+                <div className={`form-group ${errors.category && 'has-error'}`}>
+                    <label htmlFor="category">Category *</label>
+                    <Field type="text" name="category" className="form-control" />
+                    <ErrorMessage name="category" component="div" />
                 </div>
                 <div className="form-group">
                     <button type="submit" disabled={isSubmitting} className="btn btn-primary">

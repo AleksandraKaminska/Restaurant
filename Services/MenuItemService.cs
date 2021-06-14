@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -38,10 +39,10 @@ namespace Restaurant.Services
         Title = menuItemRequest.Title, 
         Description = menuItemRequest.Description,
         Price = menuItemRequest.Price,
+        Category = menuItemRequest.Category,
         Menu = local.Menu
       };
       
-      local.Menu.MenuItems.Add(menuItem);
       await _applicationDbContext.MenuItems.AddAsync(menuItem);
       await _applicationDbContext.SaveChangesAsync();
     }

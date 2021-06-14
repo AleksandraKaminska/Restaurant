@@ -13,5 +13,7 @@ namespace Restaurant.DTOs
         public string Description { get; set; }
         [Required]
         public float Price { get; set; }
+        [Required]
+        public string Category { get; set; }
     }
 }

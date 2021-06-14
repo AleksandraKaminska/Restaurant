@@ -13,6 +13,7 @@ namespace Restaurant.Models
         [MaxLength(300)]
         public string Description { get; set; }
         public float Price { get; set; }
+        public string Category { get; set; }
 
         public virtual Menu Menu { get; set; }
         
@@ -22,11 +23,12 @@ namespace Restaurant.Models
         {
         }
         
-        public MenuItem(string title, string description, float price)
+        public MenuItem(string title, string description, float price, string category)
         {
             Title = title;
             Description = description;
             Price = price;
+            Category = category;
         }
         
         public void AddOrder(OrderMenuItem orderMenuItem)

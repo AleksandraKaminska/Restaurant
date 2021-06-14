@@ -11,13 +11,13 @@ const EditLocal: React.FC<{}> = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     useEffect(() => {
-      fetchLocal().then(local => setLocal(local))
-    }, [])
-
-    const fetchLocal = async () => {
-        const response = await fetch(`${LOCALS_API_URL}/${id}`)
-        return await response.json()
-    }
+        const fetchLocal = async () => {
+            const response = await fetch(`${LOCALS_API_URL}/${id}`)
+            return await response.json()
+        }
+        
+        fetchLocal().then(local => setLocal(local))
+    }, [id])
     
     if (submitted) {
         return <Redirect to='/locals' />
