@@ -11,8 +11,7 @@ namespace Restaurant.Data.EFConfigurations
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
             
             builder.HasOne(e => e.Menu)
-                .WithMany(p => p.MenuItems)
-                .HasForeignKey(p => p.Id);
+                .WithMany(p => p.MenuItems);
         }
     }
 }

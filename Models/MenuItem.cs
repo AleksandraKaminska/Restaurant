@@ -14,7 +14,7 @@ namespace Restaurant.Models
         public string Description { get; set; }
         public float Price { get; set; }
 
-        public virtual Menu Menu { get; }
+        public virtual Menu Menu { get; set; }
         
         private List<OrderMenuItem> OrderMenuItemList { get; set; }
         

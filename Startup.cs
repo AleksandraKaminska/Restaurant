@@ -35,6 +35,11 @@ namespace Restaurant
             //             .AllowAnyHeader()
             //             .AllowCredentials();
             // }));
+            
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(

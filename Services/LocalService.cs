@@ -34,7 +34,7 @@ namespace Restaurant.Services
         .Include(s => s.Menu)
         .ThenInclude(t => t.MenuItems)
         .FirstAsync(d => d.Id == id);
-      return local?.Menu?.MenuItems;
+      return local?.Menu.MenuItems;
     }
     
     public async Task Create(LocalRequest localRequest)

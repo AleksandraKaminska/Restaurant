@@ -29,12 +29,19 @@ namespace Restaurant.Services
     
     public async Task Create(MenuItemRequest menuItemRequest)
     {
+      var local = await _applicationDbContext.Locals
+        .Include(s => s.Menu)
+        .FirstAsync(d => d.Id == menuItemRequest.LocalId);
+      
       var menuItem = new MenuItem
       {
         Title = menuItemRequest.Title, 
         Description = menuItemRequest.Description,
-        Price = menuItemRequest.Price
+        Price = menuItemRequest.Price,
+        Menu = local.Menu
       };
+      
+      local.Menu.MenuItems.Add(menuItem);
       await _applicationDbContext.MenuItems.AddAsync(menuItem);
       await _applicationDbContext.SaveChangesAsync();
     }
