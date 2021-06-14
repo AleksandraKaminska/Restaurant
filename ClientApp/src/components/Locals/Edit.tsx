@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import {Redirect, useParams} from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LOCALS_API_URL } from '../../constants';
+import {Local} from "./Locals";
 import './Locals.css';
 
 const EditLocal: React.FC<{}> = () => {
     let { id } = useParams<{ id: string }>();
-    const [local, setLocal] = useState<any>(null);
+    const [local, setLocal] = useState<Local>();
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     useEffect(() => {

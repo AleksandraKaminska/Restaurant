@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import {NavLink} from "reactstrap";
 import './Locals.css';
 
-type Local = {
+export type Local = {
     id: number
     address: {
         street: string

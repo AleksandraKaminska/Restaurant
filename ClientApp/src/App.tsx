@@ -7,6 +7,7 @@ import EditLocal from './components/Locals/Edit';
 import Locals from './components/Locals/Locals';
 import Menu from './components/Locals/Menu';
 import NewMenuItem from "./components/Locals/NewMenuItem";
+import EditMenuItem from "./components/Locals/EditMenuItem";
 import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
@@ -25,7 +26,8 @@ export default class App extends Component {
           <AuthorizeRoute path='/locals' exact component={Locals} />
           <AuthorizeRoute exact path='/locals/:id/edit' component={EditLocal} />
           <AuthorizeRoute exact path='/locals/:id/menu' component={Menu} />
-          <AuthorizeRoute exact path='/locals/:id/menu/new-item' component={NewMenuItem} />
+          <AuthorizeRoute exact path='/locals/:id/menu/items/new' component={NewMenuItem} />
+          <AuthorizeRoute exact path='/locals/:id/menu/items/:itemId/edit' component={EditMenuItem} />
           <AuthorizeRoute exact path='/locals/new' component={NewLocal} />
           <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
       </Layout>
