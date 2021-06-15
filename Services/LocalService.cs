@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -43,7 +42,6 @@ namespace Restaurant.Services
       var local = new Local
       {
         Address = localRequest.Address, 
-        NrOfTables = localRequest.NrOfTables,
         Menu = menu
       };
       await _applicationDbContext.Locals.AddAsync(local);
@@ -55,7 +53,6 @@ namespace Restaurant.Services
     {
       Local found = await _applicationDbContext.Locals.FirstAsync(d => d.Id == id);
       found.Address = local.Address;
-      found.NrOfTables = local.NrOfTables;
       _applicationDbContext.Update(found);
       await _applicationDbContext.SaveChangesAsync();
     }

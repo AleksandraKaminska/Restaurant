@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import {
+    Collapse,
+    Container, DropdownItem, DropdownMenu, DropdownToggle,
+    Navbar,
+    NavbarBrand,
+    NavbarToggler,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown
+} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { LoginMenu } from './api-authorization/LoginMenu';
 import './NavMenu.css';
@@ -20,9 +29,19 @@ const NavMenu: React.FC<{}> = () => {
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark" to="/orders">Orders</NavLink>
                             </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/locals">Locals</NavLink>
-                            </NavItem>
+                            <UncontrolledDropdown nav inNavbar>
+                                <DropdownToggle nav className="text-dark">
+                                    Admin
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem>
+                                        <NavLink tag={Link} className="text-dark" to="/locals">Locals</NavLink> 
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <NavLink tag={Link} className="text-dark" to="/tables">Tables</NavLink>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
                             <LoginMenu/>
                         </ul>
                     </Collapse>

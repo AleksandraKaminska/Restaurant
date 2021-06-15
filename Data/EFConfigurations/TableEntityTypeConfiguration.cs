@@ -15,6 +15,9 @@ namespace Restaurant.Data.EFConfigurations
                 v => v.ToString(),
                 v => (Table.StatusType)Enum.Parse(typeof(Table.StatusType), v));
             builder.Property(e => e.NrOfSeats).IsRequired();
+            
+            builder.HasOne(e => e.Local)
+                .WithMany(p => p.Tables);
         }
     }
 }

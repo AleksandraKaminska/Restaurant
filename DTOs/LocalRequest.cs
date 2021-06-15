@@ -7,7 +7,5 @@ namespace Restaurant.DTOs
     {
         [Required]
         public Address Address { get; set; }
-        [Required]
-        public int NrOfTables { get; set; }
     }
 }

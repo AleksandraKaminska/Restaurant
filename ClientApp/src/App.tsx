@@ -8,6 +8,9 @@ import Locals from './pages/Locals/Locals';
 import NewOrder from './pages/Orders/New';
 import EditOrder from './pages/Orders/Edit';
 import Orders from './pages/Orders/Orders';
+import NewTable from './pages/Tables/New';
+import EditTable from './pages/Tables/Edit';
+import Tables from './pages/Tables/Tables';
 import Menu from './pages/Menu/Menu';
 import NewMenuItem from "./pages/Menu/NewMenuItem";
 import EditMenuItem from "./pages/Menu/EditMenuItem";
@@ -32,6 +35,9 @@ const App = () => {
                     <AuthorizeRoute path='/orders' exact component={Orders} />
                     <AuthorizeRoute exact path='/orders/:id/edit' component={EditOrder} />
                     <AuthorizeRoute exact path='/orders/new' component={NewOrder} />
+                    <AuthorizeRoute path='/tables' exact component={Tables} />
+                    <AuthorizeRoute exact path='/tables/:id/edit' component={EditTable} />
+                    <AuthorizeRoute exact path='/tables/new' component={NewTable} />
                     <AuthorizeRoute path='/locals' exact component={Locals} />
                     <AuthorizeRoute exact path='/locals/:id/edit' component={EditLocal} />
                     <AuthorizeRoute exact path='/locals/:id/menu' component={Menu} />

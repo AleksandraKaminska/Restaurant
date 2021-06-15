@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,13 +9,14 @@ namespace Restaurant.Models
     public int Id { get; }
     public Address Address { get; set; }
     [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
-    public int NrOfTables { get; set; }
-    public List<Employee> Employees { get; set; }
-    public virtual Menu Menu { get; set; }
     
-    public Local()
+    public virtual List<Employee> Employees { get; set; }
+    public virtual Menu Menu { get; set; }
+    public virtual List<Table> Tables { get; set; }
+
+    public int NrOfTables()
     {
-      
+      return Tables.Count;
     }
     
     // public void AddEmployee(Employee employee)

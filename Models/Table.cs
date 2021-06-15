@@ -10,6 +10,7 @@ namespace Restaurant.Models
         public StatusType Status { get; set; }
 
         public List<Order> Orders = new List<Order>();
+        public virtual Local Local { get; set; }
         
         public enum StatusType
         {

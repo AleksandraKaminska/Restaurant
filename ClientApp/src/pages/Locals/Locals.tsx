@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { LOCALS_API_URL } from '../../constants';
 import { FiTrash2, FiEdit2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import {NavLink} from "reactstrap";
+import {NavLink, Spinner} from "reactstrap";
 import './Locals.css';
 
 export type Local = {
@@ -49,7 +49,7 @@ const Locals: React.FC<{}> = () => {
       }
     }
 
-    return loading ? <p>Loading...</p> : (
+    return loading ? <Spinner type='primary' /> : (
       <div>
           <div className={'header'}>
               <h1>All locals</h1>
