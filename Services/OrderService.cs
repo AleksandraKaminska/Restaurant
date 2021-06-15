@@ -45,12 +45,5 @@ namespace Restaurant.Services
       _applicationDbContext.Update(found);
       await _applicationDbContext.SaveChangesAsync();
     }
-    
-    public async Task Delete(int id)
-    {
-      var order = await _applicationDbContext.Orders.FirstAsync(d => d.Id == id);
-      _applicationDbContext.Orders.Remove(order);
-      await _applicationDbContext.SaveChangesAsync();
-    }
   }
 }

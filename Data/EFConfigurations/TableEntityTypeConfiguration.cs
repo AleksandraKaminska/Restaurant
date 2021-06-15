@@ -5,18 +5,16 @@ using Restaurant.Models;
 
 namespace Restaurant.Data.EFConfigurations
 {
-    public class OrderEntityTypeConfiguration : IEntityTypeConfiguration<Order>
+    public class TableEntityTypeConfiguration : IEntityTypeConfiguration<Table>
     {
-        public void Configure(EntityTypeBuilder<Order> builder) {
+        public void Configure(EntityTypeBuilder<Table> builder) {
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
             builder.Property(e => e.Status).IsRequired();
             builder.Property(e => e.Status).HasConversion(
-                    v => v.ToString(),
-                    v => (Order.StatusType)Enum.Parse(typeof(Order.StatusType), v));
-            
-            builder.HasOne(e => e.Table)
-                .WithMany(p => p.Orders);
+                v => v.ToString(),
+                v => (Table.StatusType)Enum.Parse(typeof(Table.StatusType), v));
+            builder.Property(e => e.NrOfSeats).IsRequired();
         }
     }
 }

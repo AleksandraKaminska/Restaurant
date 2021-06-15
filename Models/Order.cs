@@ -10,6 +10,7 @@ namespace Restaurant.Models
         // public List<OrderMenuItem> OrderMenuItemList = new List<OrderMenuItem>();
         public virtual Waiter Waiter { get; set; }
         public List<Bill> Bills = new List<Bill>();
+        public virtual Table Table { get; set; }
         
         public enum StatusType
         {
