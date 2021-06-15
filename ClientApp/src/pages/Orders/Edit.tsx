@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Redirect, useParams} from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LOCALS_API_URL } from '../../constants';
-import './Locals.css';
+import './Orders.css';
 
 const EditLocal: React.FC<{}> = () => {
     let { id } = useParams<{ id: string }>();

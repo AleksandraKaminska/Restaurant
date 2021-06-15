@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { LOCALS_API_URL } from '../../constants';
 import {Redirect} from "react-router-dom";
-import './Locals.css';
+import './Orders.css';
 
 const NewLocal: React.FC<{}> = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
