@@ -1,42 +1,56 @@
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Restaurant.Data;
+using Restaurant.DTOs;
 using Restaurant.Models;
 
 namespace Restaurant.Services
 {
-  public class OrderService
+  public class OrderService : IOrderService
   {
-    private static List<Order> orders = new List<Order>();
-    
-    static OrderService()
+    private readonly ApplicationDbContext _applicationDbContext;
+
+    public OrderService(ApplicationDbContext applicationDbContext)
     {
+      _applicationDbContext = applicationDbContext;
     }
     
-    public List<Order> GetAll()
+    public async Task<IEnumerable<Order>> GetAll()
     {
-      return orders;
+      var result = await _applicationDbContext.Orders.ToListAsync();
+      return result;
     }
     
-    public Order GetById(int id)
+    public async Task<Order> GetById(int id)
     {
-      return orders.Where(order => order.Id == id).FirstOrDefault();
+      return await _applicationDbContext.Orders.FirstAsync(d => d.Id == id);
     }
     
-    public Order Create(Order order)
+    public async Task Create(OrderRequest orderRequest)
     {
-      orders.Add(order);
-      return order;
+      var order = new Order
+      {
+        Status = orderRequest.Status 
+      };
+      
+      await _applicationDbContext.Orders.AddAsync(order);
+      await _applicationDbContext.SaveChangesAsync();
     }
     
-    public void Update(int id, Order order)
+    public async Task Update(int id, OrderRequest order)
     {
-      Order found = orders.Where(n => n.Id == id).FirstOrDefault();
+      Order found = await _applicationDbContext.Orders.FirstAsync(d => d.Id == id);
       found.Status = order.Status;
+      _applicationDbContext.Update(found);
+      await _applicationDbContext.SaveChangesAsync();
     }
     
-    public void Delete(int id)
+    public async Task Delete(int id)
     {
-      orders.RemoveAll(n => n.Id == id);
+      var order = await _applicationDbContext.Orders.FirstAsync(d => d.Id == id);
+      _applicationDbContext.Orders.Remove(order);
+      await _applicationDbContext.SaveChangesAsync();
     }
   }
 }

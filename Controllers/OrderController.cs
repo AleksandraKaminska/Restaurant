@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Restaurant.DTOs;
 using Restaurant.Models;
 using Restaurant.Services;
 
@@ -12,46 +15,56 @@ namespace Restaurant.Controllers
   // [EnableCors("ReactPolicy")]
   public class OrdersController : ControllerBase
   {
-    private readonly OrderService orderService;
-    public OrdersController(OrderService orderService)
+    private readonly IOrderService _orderService;
+    
+    public OrdersController(IOrderService orderService)
     {
-      this.orderService = orderService;
+      _orderService = orderService;
     }
+    
     // GET api/orders
     [HttpGet]
-    public IEnumerable<Order> Get()
+    public async Task<IActionResult> Get()
     {
-      return orderService.GetAll();
+      return Ok(await _orderService.GetAll());
     }
+    
     // GET api/orders/5
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
-    {
-      return Ok(orderService.GetById(id));
+    public async Task<IActionResult> Get(int id) {
+      var result = await _orderService.GetById(id);
+      if (result == null) {
+        return NotFound("An order with given id does not exist");
+      }
+      return Ok(result);
     }
+    
     // POST api/orders
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] Order order)
+    public async Task<IActionResult> Post([FromBody] OrderRequest order)
     {
-      return CreatedAtAction("Get", new { id = order.Id }, orderService.Create(order));
+      try
+      {
+        if (order == null)
+          return BadRequest();
+
+        Console.WriteLine(order.Status);
+        await _orderService.Create(order);
+        return Created("Menu item created successfully", order);
+      }
+      catch (Exception err)
+      {
+        return StatusCode(StatusCodes.Status500InternalServerError,
+          err);
+      }
     }
+    
     // PUT api/orders/5
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, [FromBody] Order order)
+    public async Task<IActionResult> Put(int id, [FromBody] OrderRequest order)
     {
-      orderService.Update(id, order);
+      await _orderService.Update(id, order);
       return NoContent();
-    }
-    // DELETE api/orders/5
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
-    {
-      orderService.Delete(id);
-      return NoContent();
-    }
-    public override NoContentResult NoContent()
-    {
-      return base.NoContent();
     }
   }
 }

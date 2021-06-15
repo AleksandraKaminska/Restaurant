@@ -5,11 +5,11 @@ namespace Restaurant.Models
 {
     public class OrderMenuItem
     {
-        private readonly int _quantity;
-        private readonly MenuItem _menuItem;
-        private readonly Order _order;
+        private int Quantity { get; set; }
+        private MenuItem MenuItem { get; set; }
+        private Order Order { get; set; } 
         
-        private static readonly List<OrderMenuItem> OrderMenuItemList = new List<OrderMenuItem>();
+        private List<OrderMenuItem> OrderMenuItemList = new List<OrderMenuItem>();
         
         public OrderMenuItem(MenuItem menuItem, Order order, int quantity)
         {
@@ -31,29 +31,24 @@ namespace Restaurant.Models
                 } 
             });
             
-            _menuItem = menuItem;
-            _order = order;
-            _quantity = quantity;
+            MenuItem = menuItem;
+            Order = order;
+            Quantity = quantity;
 
-            menuItem.AddOrder(this);
-            order.AddMenuItem(this);
+            // menuItem.AddOrder(this);
+            // order.AddMenuItem(this);
             
             OrderMenuItemList.Add(this);
         }
         
         public MenuItem GetMenuItem()
         {
-            return _menuItem;
+            return MenuItem;
         }
         
         public Order GetOrder()
         {
-            return _order;
-        }
-        
-        public override string ToString()
-        {
-            return  $"Order {_order.Id}: {_menuItem} zł x {_quantity}";
+            return Order;
         }
     }
 }

@@ -29,8 +29,9 @@ namespace Restaurant.Data
             modelBuilder.ApplyConfiguration(new MenuEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new MenuItemEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EmployeeEntityTypeConfiguration());
-            // modelBuilder.ApplyConfiguration(new BillEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderEntityTypeConfiguration());
             // modelBuilder.ApplyConfiguration(new OrderMenuItemEntityTypeConfiguration());
+            // modelBuilder.ApplyConfiguration(new BillEntityTypeConfiguration());
             // modelBuilder.ApplyConfiguration(new MenuItemEntityTypeConfiguration());
             // modelBuilder.ApplyConfiguration(new TableItemEntityTypeConfiguration());
             // modelBuilder.ApplyConfiguration(new PaymentItemEntityTypeConfiguration());

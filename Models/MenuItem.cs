@@ -16,34 +16,25 @@ namespace Restaurant.Models
         public string Category { get; set; }
 
         public virtual Menu Menu { get; set; }
-        
-        private List<OrderMenuItem> OrderMenuItemList { get; set; }
+        // public virtual List<OrderMenuItem> OrderMenuItemList { get; set; }
         
         public MenuItem()
         {
         }
         
-        public MenuItem(string title, string description, float price, string category)
-        {
-            Title = title;
-            Description = description;
-            Price = price;
-            Category = category;
-        }
-        
-        public void AddOrder(OrderMenuItem orderMenuItem)
-        {
-            if (OrderMenuItemList.Contains(orderMenuItem))
-            {
-                return;
-            }
-            
-            if (orderMenuItem.GetMenuItem() != this)
-            {
-                throw new Exception("Wrong data!");
-            }
-            
-            OrderMenuItemList.Add(orderMenuItem);
-        }
+        // public void AddOrder(OrderMenuItem orderMenuItem)
+        // {
+        //     if (OrderMenuItemList.Contains(orderMenuItem))
+        //     {
+        //         return;
+        //     }
+        //     
+        //     if (orderMenuItem.GetMenuItem() != this)
+        //     {
+        //         throw new Exception("Wrong data!");
+        //     }
+        //     
+        //     OrderMenuItemList.Add(orderMenuItem);
+        // }
     }
 }
