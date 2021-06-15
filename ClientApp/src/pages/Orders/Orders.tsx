@@ -5,9 +5,15 @@ import { Link } from 'react-router-dom';
 import {NavLink, Spinner} from "reactstrap";
 import './Orders.css';
 
+enum StatusType {
+    Received,
+    InPreparation,
+    Done
+}
+
 type Order = {
     id: number
-    status: 'received' | 'in preperation' | 'done'
+    status: StatusType
 }
 
 const Orders: React.FC<{}> = () => {
@@ -44,7 +50,7 @@ const Orders: React.FC<{}> = () => {
                 {orders.map((order, index) => (
                   <tr key={order.id}>
                     <th scope="row">{index + 1}</th>
-                    <td>{order.status}</td>
+                    <td>{getStatusName(order.status)}</td>
                     <td>
                       <Link to={`/orders/${order.id}/edit`} className="btn btn-outline-primary ml-2">
                         <FiEdit2 />
@@ -57,5 +63,12 @@ const Orders: React.FC<{}> = () => {
       </div>
     )
 }
+
+const getStatusName = (status: StatusType) => 
+    status == StatusType.Received 
+        ? 'Received' 
+        : status == StatusType.InPreparation 
+            ? 'InPreparation' 
+            : 'Done';
 
 export default Orders;

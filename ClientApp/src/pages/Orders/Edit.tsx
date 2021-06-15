@@ -53,9 +53,13 @@ const EditOrder: React.FC<{}> = () => {
           {({ isSubmitting, errors }) => (
             <Form>
               <div className={`form-group ${errors.status && 'has-error'}`}>
-                <label htmlFor="status">Status *</label>
-                <Field type="number" name="status" className="form-control" />
-                <ErrorMessage name="status" component="div" />
+                  <label htmlFor="status">Status *</label>
+                  <Field as="select" name="status" className="form-control">
+                      <option value="0">Received</option>
+                      <option value="1">In preperation</option>
+                      <option value="2">Done</option>
+                  </Field>
+                  <ErrorMessage name="status" component="div" />
               </div>
               <div className="form-group">
                 <button type="submit" disabled={isSubmitting} className="btn btn-primary">

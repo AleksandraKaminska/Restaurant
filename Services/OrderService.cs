@@ -40,7 +40,7 @@ namespace Restaurant.Services
     
     public async Task Update(int id, OrderRequest order)
     {
-      Order found = await _applicationDbContext.Orders.FirstAsync(d => d.Id == id);
+      var found = await _applicationDbContext.Orders.FirstAsync(d => d.Id == id);
       found.Status = order.Status;
       _applicationDbContext.Update(found);
       await _applicationDbContext.SaveChangesAsync();
