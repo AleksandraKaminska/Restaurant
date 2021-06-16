@@ -18,30 +18,41 @@ namespace Restaurant.Services
     
     public async Task<IEnumerable<Order>> GetAll()
     {
-      var result = await _applicationDbContext.Orders.ToListAsync();
-      return result;
+      return await _applicationDbContext.Orders
+        .Include(s => s.Table)
+        .ToListAsync();
     }
     
     public async Task<Order> GetById(int id)
     {
-      return await _applicationDbContext.Orders.FirstAsync(d => d.Id == id);
+      return await _applicationDbContext.Orders
+        .Include(s => s.Table)
+        .FirstAsync(d => d.Id == id);
     }
     
-    public async Task Create(OrderRequest orderRequest)
+    public async Task<Order> Create(OrderRequest orderRequest)
     {
+      var table = await _applicationDbContext.Tables.FirstOrDefaultAsync(d => d.Id == orderRequest.TableId);
+      table.Status = Table.StatusType.Occupied;
+
       var order = new Order
       {
-        Status = orderRequest.Status 
+        Status = orderRequest.Status, 
+        Table = table
       };
       
       await _applicationDbContext.Orders.AddAsync(order);
       await _applicationDbContext.SaveChangesAsync();
+      return order;
     }
     
     public async Task Update(int id, OrderRequest order)
     {
+      var table = await _applicationDbContext.Tables.FirstOrDefaultAsync(d => d.Id == order.TableId);
+
       var found = await _applicationDbContext.Orders.FirstAsync(d => d.Id == id);
       found.Status = order.Status;
+      found.Table = table;
       _applicationDbContext.Update(found);
       await _applicationDbContext.SaveChangesAsync();
     }

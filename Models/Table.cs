@@ -9,7 +9,7 @@ namespace Restaurant.Models
         public int NrOfSeats { get; set; }
         public StatusType Status { get; set; }
 
-        public virtual List<Order> Orders { get; set; }
+        public List<Order> Orders { get; set; }
         public Local Local { get; set; }
         
         public enum StatusType

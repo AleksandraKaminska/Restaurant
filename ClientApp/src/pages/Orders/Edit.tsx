@@ -11,13 +11,15 @@ const EditOrder: React.FC<{}> = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     useEffect(() => {
-      fetchOrder().then(order => setOrder(order))
-    }, [])
+        const fetchOrder = async () => {
+            const response = await fetch(`${ORDERS_API_URL}/${id}`)
+            return await response.json()
+        }
+        
+        fetchOrder().then(order => setOrder(order))
+    }, [id])
 
-    const fetchOrder = async () => {
-        const response = await fetch(`${ORDERS_API_URL}/${id}`)
-        return await response.json()
-    }
+    
     
     if (submitted) {
         return <Redirect to='/orders' />

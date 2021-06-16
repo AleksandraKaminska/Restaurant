@@ -3,6 +3,7 @@ import { ORDERS_API_URL } from '../../constants';
 import { FiEdit2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import {NavLink, Spinner} from "reactstrap";
+import {Table} from "../Tables/Tables";
 import './Orders.css';
 
 enum StatusType {
@@ -11,9 +12,10 @@ enum StatusType {
     Done
 }
 
-type Order = {
+export type Order = {
     id: number
     status: StatusType
+    table: Table
 }
 
 const Orders: React.FC<{}> = () => {
@@ -41,21 +43,23 @@ const Orders: React.FC<{}> = () => {
           <table className="table table-hover table-striped mt-5">
             <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Status</th>
-                  <th scope="col" />
+                    <th scope="col">#</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Table nr</th>
+                    <th scope="col" />
                 </tr>
             </thead>
             <tbody>
                 {orders.map((order, index) => (
                   <tr key={order.id}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{getStatusName(order.status)}</td>
-                    <td>
-                      <Link to={`/orders/${order.id}/edit`} className="btn btn-outline-primary ml-2">
-                        <FiEdit2 />
-                      </Link>
-                    </td>
+                      <th scope="row">{index + 1}</th>
+                      <td>{getStatusName(order.status)}</td>
+                      <td>{order.table.id}</td>
+                      <td>
+                        <Link to={`/orders/${order.id}/edit`} className="btn btn-outline-primary ml-2">
+                            <FiEdit2 />
+                        </Link>
+                      </td>
                   </tr>
                 ))}
             </tbody>
@@ -65,9 +69,9 @@ const Orders: React.FC<{}> = () => {
 }
 
 const getStatusName = (status: StatusType) => 
-    status == StatusType.Received 
+    status === StatusType.Received 
         ? 'Received' 
-        : status == StatusType.InPreparation 
+        : status === StatusType.InPreparation 
             ? 'InPreparation' 
             : 'Done';
 

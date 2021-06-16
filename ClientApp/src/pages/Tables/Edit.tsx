@@ -11,13 +11,15 @@ const EditTable: React.FC<{}> = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     useEffect(() => {
-      fetchTable().then(table => setTable(table))
-    }, [])
+        const fetchTable = async () => {
+            const response = await fetch(`${TABLES_API_URL}/${id}`)
+            return await response.json()
+        }
+        
+        fetchTable().then(table => setTable(table))
+    }, [id])
 
-    const fetchTable = async () => {
-        const response = await fetch(`${TABLES_API_URL}/${id}`)
-        return await response.json()
-    }
+    
     
     if (submitted) {
         return <Redirect to='/tables' />

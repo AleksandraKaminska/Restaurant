@@ -14,10 +14,10 @@ namespace Restaurant.Models
     public virtual Menu Menu { get; set; }
     public virtual List<Table> Tables { get; set; }
 
-    // public int NrOfTables()
-    // {
-    //   return Tables.Count;
-    // }
+    public int NrOfTables()
+    {
+      return Tables.Count;
+    }
     
     // public void AddEmployee(Employee employee)
     // {

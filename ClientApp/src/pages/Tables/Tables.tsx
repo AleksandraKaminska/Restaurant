@@ -12,7 +12,7 @@ enum StatusType {
     Reserved
 }
 
-type Table = {
+export type Table = {
     id: number
     local: Local
     status: StatusType
@@ -93,9 +93,9 @@ const Tables: React.FC<{}> = () => {
 }
 
 const getStatusName = (status: StatusType) => 
-    status == StatusType.Free
+    status === StatusType.Free
         ? 'Free' 
-        : status == StatusType.Occupied 
+        : status === StatusType.Occupied 
             ? 'Occupied' 
             : 'Reserved';
 

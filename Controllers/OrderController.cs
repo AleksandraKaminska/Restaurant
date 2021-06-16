@@ -48,9 +48,9 @@ namespace Restaurant.Controllers
         if (order == null)
           return BadRequest();
 
-        Console.WriteLine(order.Status);
-        await _orderService.Create(order);
-        return Created("Menu item created successfully", order);
+        Console.WriteLine(order.TableId);
+        var response = await _orderService.Create(order);
+        return Created("Menu item created successfully", response);
       }
       catch (Exception err)
       {

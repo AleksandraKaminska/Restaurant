@@ -7,5 +7,7 @@ namespace Restaurant.DTOs
     {
         [Required]
         public Order.StatusType Status { get; set; }
+        [Required]
+        public int TableId { get; set; }
     }
 }
