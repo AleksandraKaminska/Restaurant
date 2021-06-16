@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ORDERS_API_URL } from '../../constants';
 import { FiEdit2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import {NavLink, Spinner} from "reactstrap";
+import { DropdownItem, DropdownMenu, DropdownToggle, NavLink, Spinner, UncontrolledDropdown} from "reactstrap";
 import {Table} from "../Tables/Tables";
 import './Orders.css';
 
@@ -21,7 +21,7 @@ export type Order = {
 const Orders: React.FC<{}> = () => {
     const [orders, setOrders] = useState<Array<Order>>([]);
     const [loading, setLoading] = useState<boolean>(false)
-
+    
     useEffect(() => {
       fetchAllOrders().then(orders => setOrders(orders))
     }, [])
@@ -32,6 +32,27 @@ const Orders: React.FC<{}> = () => {
         const resp = await response.json()
         setLoading(false)
         return resp
+    }
+
+    const changeOrderStatus = (id: number, status: StatusType) => {
+        fetch(`${ORDERS_API_URL}/${id}`, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status })
+        })
+            .then(res => {
+                const newOrders: Array<Order> = orders.map(order => {
+                    if (order.id === id) {
+                        order.status = status
+                    }
+                    return order
+                })
+                setOrders(newOrders)
+                return res.json()
+            })
+            .catch(err => console.log(err));
     }
 
     return loading ? <Spinner type="primary"/> : (
@@ -52,8 +73,19 @@ const Orders: React.FC<{}> = () => {
             <tbody>
                 {orders.map((order, index) => (
                   <tr key={order.id}>
-                      <th scope="row">{index + 1}</th>
-                      <td>{getStatusName(order.status)}</td>
+                      <th scope="row">{order.id}</th>
+                      <td>
+                          <UncontrolledDropdown>
+                              <DropdownToggle caret color={'light'}>
+                                  {getStatusName(order.status)}
+                              </DropdownToggle>
+                              <DropdownMenu>
+                                  <DropdownItem onClick={() => changeOrderStatus(order.id, StatusType.Received)}>{getStatusName(StatusType.Received)}</DropdownItem>
+                                  <DropdownItem onClick={() => changeOrderStatus(order.id, StatusType.InPreparation)}>{getStatusName(StatusType.InPreparation)}</DropdownItem>
+                                  <DropdownItem onClick={() => changeOrderStatus(order.id, StatusType.Done)}>{getStatusName(StatusType.Done)}</DropdownItem>
+                              </DropdownMenu>
+                          </UncontrolledDropdown>
+                      </td>
                       <td>{order.table.id}</td>
                       <td>
                         <Link to={`/orders/${order.id}/edit`} className="btn btn-outline-primary ml-2">
@@ -72,7 +104,7 @@ const getStatusName = (status: StatusType) =>
     status === StatusType.Received 
         ? 'Received' 
         : status === StatusType.InPreparation 
-            ? 'InPreparation' 
+            ? 'In Preparation' 
             : 'Done';
 
 export default Orders;

@@ -20,6 +20,7 @@ namespace Restaurant.Services
     {
       return await _applicationDbContext.Orders
         .Include(s => s.Table)
+        .ThenInclude(t => t.Local)
         .ToListAsync();
     }
     
@@ -27,6 +28,7 @@ namespace Restaurant.Services
     {
       return await _applicationDbContext.Orders
         .Include(s => s.Table)
+        .ThenInclude(t => t.Local)
         .FirstAsync(d => d.Id == id);
     }
     

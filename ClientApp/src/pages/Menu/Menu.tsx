@@ -20,15 +20,8 @@ const Menu: React.FC<{}> = () => {
     const { id } = useParams()
 
     useEffect(() => {
-        const fetchMenu = async () => {
-            setLoading(true)
-            const response = await fetch(`${LOCALS_API_URL}/${id}/menu`)
-            const resp = await response.json()
-            setLoading(false)
-            return resp
-        }
-        
-        fetchMenu().then(menuItems => setMenuItems(menuItems))
+        fetchMenu(setLoading, id)
+            .then(menuItems => setMenuItems(menuItems))
     }, [id])
 
     const handleRemove = (id: number) => {
@@ -92,6 +85,14 @@ const Menu: React.FC<{}> = () => {
             </ListGroup>
         </div>
     )
+}
+
+export const fetchMenu = async (callback: React.Dispatch<React.SetStateAction<boolean>>, id: number) => {
+    callback(true)
+    const response = await fetch(`${LOCALS_API_URL}/${id}/menu`)
+    const resp = await response.json()
+    callback(false)
+    return resp
 }
 
 export default Menu;

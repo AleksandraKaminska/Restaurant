@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import {ORDERS_API_URL, TABLES_API_URL} from '../../constants';
 import {Redirect} from "react-router-dom";
-import './Orders.css';
 import {Table} from "../Tables/Tables";
 import { Card, CardBody, CardSubtitle, CardTitle, Spinner} from "reactstrap";
 import {Order} from "./Orders";
+import './Orders.css';
 
 const NewOrder: React.FC<{}> = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
@@ -63,7 +63,7 @@ const NewOrder: React.FC<{}> = () => {
                 <div role="group">
                     {tables.map((table: Table) =>
                         <label key={table.id}>
-                            <Field type="radio" name="tableId" value={table.id.toString()} />
+                            <Field type="radio" className='d-none' name="tableId" value={table.id.toString()} />
                             <Card>
                                 <CardBody>
                                     <CardTitle tag="h5">Table {table.id}</CardTitle>
