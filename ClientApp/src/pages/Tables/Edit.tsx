@@ -23,15 +23,13 @@ const EditTable: React.FC<{}> = () => {
         return <Redirect to='/tables' />
     }
     
-    console.log(table)
-
     return table ? (
       <div>
         <h1>Edit a table</h1>
         <Formik
           initialValues={{
               status: table.status,
-              localId: table.localId,
+              localId: table.local.id,
               nrOfSeats: table.nrOfSeats
           }}
           onSubmit={(values, { setSubmitting }) =>

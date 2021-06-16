@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import {LOCALS_API_URL, TABLES_API_URL} from '../../constants';
 import {Redirect} from "react-router-dom";
-import './Tables.css';
 import {Local} from "../Locals/Locals";
+import './Tables.css';
+import {Spinner} from "reactstrap";
 
 const NewTable: React.FC<{}> = () => {
     const [submitted, setSubmitted] = useState<boolean>(false);
@@ -26,14 +27,14 @@ const NewTable: React.FC<{}> = () => {
         return <Redirect to='/tables' />
     }
     
-    return (
+    return loading ? <Spinner type='primary' /> : (
       <div>
         <h1>Add a new table</h1>
         <Formik
           initialValues={{
               status: 0,
               nrOfSeats: 0,
-              localId: 1
+              localId: 0
           }}
           onSubmit={(values, { setSubmitting }) =>
           {
@@ -62,6 +63,7 @@ const NewTable: React.FC<{}> = () => {
                 <div className={`form-group ${errors.status && 'has-error'}`}>
                     <label htmlFor="localId">Local *</label>
                     <Field as="select" name="localId" className="form-control">
+                        <option />
                         {locals.map(local => 
                             <option key={local.id} value={local.id}>
                                 {local.address.street} {local.address.apartmentNumber}, {local.address.city}

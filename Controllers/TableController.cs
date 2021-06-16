@@ -60,7 +60,6 @@ namespace Restaurant.Controllers
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] TableRequest table)
     {
-      Console.WriteLine(table.LocalId);
       await _tableService.Update(id, table);
       return NoContent();
     }

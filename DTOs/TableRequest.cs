@@ -7,7 +7,7 @@ namespace Restaurant.DTOs
     {
         [Required]
         public int LocalId { get; set; }
-        // [Required]
+        [Required]
         public Table.StatusType Status { get; set; }
         [Required]
         public int NrOfSeats { get; set; }

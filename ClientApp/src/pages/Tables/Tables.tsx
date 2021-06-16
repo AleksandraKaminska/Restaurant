@@ -23,7 +23,7 @@ type Table = {
 const Tables: React.FC<{}> = () => {
     const [tables, setTables] = useState<Array<Table>>([]);
     const [loading, setLoading] = useState<boolean>(false)
-
+    
     useEffect(() => {
       fetchAllTables().then(tables => setTables(tables))
     }, [])
@@ -75,8 +75,7 @@ const Tables: React.FC<{}> = () => {
                       <th scope="row">{index + 1}</th>
                       <td>{getStatusName(table.status)}</td>
                       <td>{table.nrOfSeats}</td>
-                      <td>{table.local}</td>
-                      {console.log(table.local)}
+                      <td>{table.local.address.street} {table.local.address.apartmentNumber}, {table.local.address.zipCode} {table.local.address.city}</td>
                       <td>
                           <button className="btn btn-outline-danger" onClick={() => handleRemove(table.id)}>
                               <FiTrash2 />

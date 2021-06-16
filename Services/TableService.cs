@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -19,24 +20,27 @@ namespace Restaurant.Services
     
     public async Task<IEnumerable<Table>> GetAll()
     {
-      var result = await _applicationDbContext.Tables.ToListAsync();
-      return result;
+      return await _applicationDbContext.Tables
+        .Include(s => s.Local)
+        .ToListAsync();
     }
     
     public async Task<Table> GetById(int id)
     {
-      return await _applicationDbContext.Tables.FirstAsync(d => d.Id == id);
+      return await _applicationDbContext.Tables
+        .Include(s => s.Local)
+        .FirstAsync(d => d.Id == id);
     }
     
     public async Task Create(TableRequest tableRequest)
     {
-      // var local = await _applicationDbContext.Locals.FirstAsync(d => d.Id == 1);
+      var local = await _applicationDbContext.Locals.FirstOrDefaultAsync(d => d.Id == tableRequest.LocalId);
 
       var table = new Table
       {
         Status = tableRequest.Status,
         NrOfSeats = tableRequest.NrOfSeats,
-        // Local = local
+        Local = local
       };
       
       await _applicationDbContext.Tables.AddAsync(table);
