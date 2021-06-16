@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -29,9 +30,13 @@ namespace Restaurant.Services
     
     public async Task Create(TableRequest tableRequest)
     {
+      // var local = await _applicationDbContext.Locals.FirstAsync(d => d.Id == 1);
+
       var table = new Table
       {
-        Status = tableRequest.Status 
+        Status = tableRequest.Status,
+        NrOfSeats = tableRequest.NrOfSeats,
+        // Local = local
       };
       
       await _applicationDbContext.Tables.AddAsync(table);
@@ -42,6 +47,7 @@ namespace Restaurant.Services
     {
       var found = await _applicationDbContext.Tables.FirstAsync(d => d.Id == id);
       found.Status = table.Status;
+      found.NrOfSeats = table.NrOfSeats;
       _applicationDbContext.Update(found);
       await _applicationDbContext.SaveChangesAsync();
     }

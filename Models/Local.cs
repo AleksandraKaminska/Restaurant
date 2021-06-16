@@ -12,7 +12,7 @@ namespace Restaurant.Models
     
     public virtual List<Employee> Employees { get; set; }
     public virtual Menu Menu { get; set; }
-    public virtual List<Table> Tables { get; set; }
+    public List<Table> Tables { get; set; }
 
     public int NrOfTables()
     {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Redirect, useParams} from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { TABLES_API_URL} from '../../constants';
-import {Spinner} from "reactstrap";
+import { Spinner } from "reactstrap";
 import './Tables.css';
 
 const EditTable: React.FC<{}> = () => {
@@ -22,6 +22,8 @@ const EditTable: React.FC<{}> = () => {
     if (submitted) {
         return <Redirect to='/tables' />
     }
+    
+    console.log(table)
 
     return table ? (
       <div>
@@ -29,7 +31,8 @@ const EditTable: React.FC<{}> = () => {
         <Formik
           initialValues={{
               status: table.status,
-              localId: table.localId
+              localId: table.localId,
+              nrOfSeats: table.nrOfSeats
           }}
           onSubmit={(values, { setSubmitting }) =>
           {
@@ -40,7 +43,8 @@ const EditTable: React.FC<{}> = () => {
                 },
                 body: JSON.stringify({
                     status: values.status,
-                    localId: values.localId
+                    localId: values.localId,
+                    nrOfSeats: values.nrOfSeats
                 })
             })
             .then(res => {
@@ -54,20 +58,30 @@ const EditTable: React.FC<{}> = () => {
         >
           {({ isSubmitting, errors }) => (
             <Form>
-              <div className={`form-group ${errors.status && 'has-error'}`}>
-                  <label htmlFor="status">Status *</label>
-                  <Field as="select" name="status" className="form-control">
-                      <option value="0">Free</option>
-                      <option value="1">Occupied</option>
-                      <option value="2">Reserved</option>
-                  </Field>
-                  <ErrorMessage name="status" component="div" />
-              </div>
-              <div className="form-group">
-                <button type="submit" disabled={isSubmitting} className="btn btn-primary">
-                  Submit
-                </button>
-              </div>
+                <div className={`form-group ${errors.localId && 'has-error'}`}>
+                    <label htmlFor="localId">Local *</label>
+                    <Field type="text" name="localId" className="form-control" />
+                    <ErrorMessage name="localId" component="div" />
+                </div>
+                <div className={`form-group ${errors.status && 'has-error'}`}>
+                    <label htmlFor="status">Status *</label>
+                    <Field as="select" name="status" className="form-control">
+                        <option value="0">Free</option>
+                        <option value="1">Occupied</option>
+                        <option value="2">Reserved</option>
+                    </Field>
+                    <ErrorMessage name="status" component="div" />
+                </div>
+                <div className={`form-group ${errors.nrOfSeats && 'has-error'}`}>
+                    <label htmlFor="nrOfSeats">Number of seats *</label>
+                    <Field type="number" name="nrOfSeats" className="form-control" />
+                    <ErrorMessage name="nrOfSeats" component="div" />
+                </div>
+                <div className="form-group">
+                    <button type="submit" disabled={isSubmitting} className="btn btn-primary">
+                      Submit
+                    </button>
+                </div>
             </Form>
           )}
         </Formik>

@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.DTOs;
-using Restaurant.Models;
 using Restaurant.Services;
 
 namespace Restaurant.Controllers
@@ -48,14 +46,13 @@ namespace Restaurant.Controllers
         if (table == null)
           return BadRequest();
 
-        Console.WriteLine(table.Status);
         await _tableService.Create(table);
-        return Created("Menu item created successfully", table);
+        return Created("Table created successfully", table);
       }
       catch (Exception err)
       {
         return StatusCode(StatusCodes.Status500InternalServerError,
-          err);
+          err.Message);
       }
     }
     
@@ -63,7 +60,16 @@ namespace Restaurant.Controllers
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] TableRequest table)
     {
+      Console.WriteLine(table.LocalId);
       await _tableService.Update(id, table);
+      return NoContent();
+    }
+    
+    // DELETE api/tables/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+      await _tableService.Delete(id);
       return NoContent();
     }
   }
