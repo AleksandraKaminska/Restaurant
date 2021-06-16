@@ -6,7 +6,7 @@ import { NavLink, Spinner } from "reactstrap";
 import { Local } from "../Locals/Locals";
 import './Tables.css';
 
-enum StatusType {
+export enum StatusType {
     Free,
     Occupied,
     Reserved
@@ -92,7 +92,7 @@ const Tables: React.FC<{}> = () => {
     )
 }
 
-const getStatusName = (status: StatusType) => 
+export const getStatusName = (status: StatusType) => 
     status === StatusType.Free
         ? 'Free' 
         : status === StatusType.Occupied 

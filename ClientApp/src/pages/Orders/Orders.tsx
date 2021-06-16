@@ -82,7 +82,6 @@ const Orders: React.FC<{}> = () => {
                               <DropdownMenu>
                                   <DropdownItem onClick={() => changeOrderStatus(order.id, StatusType.Received)}>{getStatusName(StatusType.Received)}</DropdownItem>
                                   <DropdownItem onClick={() => changeOrderStatus(order.id, StatusType.InPreparation)}>{getStatusName(StatusType.InPreparation)}</DropdownItem>
-                                  <DropdownItem onClick={() => changeOrderStatus(order.id, StatusType.Done)}>{getStatusName(StatusType.Done)}</DropdownItem>
                               </DropdownMenu>
                           </UncontrolledDropdown>
                       </td>

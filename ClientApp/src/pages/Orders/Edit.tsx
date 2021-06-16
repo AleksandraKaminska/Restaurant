@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Redirect, useParams} from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { ORDERS_API_URL} from '../../constants';
-import {ListGroup, ListGroupItem, Media, Spinner} from "reactstrap";
+import {Button, ListGroup, ListGroupItem, Media, Spinner} from "reactstrap";
 import {fetchMenu, MenuItem} from "../Menu/Menu";
 import groupBy from "lodash/groupBy";
 import './Orders.css';
@@ -80,8 +80,28 @@ const EditOrder: React.FC<{}> = () => {
                   )}
               </ListGroup>
           </div>
-          <div className='order-summary mt-4 ml-5 pl-5'>
+          <div className='order-summary mt-4 ml-5 pl-5 d-flex flex-column justify-content-between'>
               <h1 className=''>Table {order.table.id}</h1>
+              <div className='items'>
+                  
+              </div>
+              <div className='d-flex flex-column justify-content-center align-items-center'>
+                  <ListGroup flush className='w-100 mb-4'>
+                      <ListGroupItem className='d-flex justify-content-between align-items-center'>
+                          <span>Total</span>
+                          <span className="text-muted">12</span>
+                      </ListGroupItem>
+                      <ListGroupItem className='d-flex justify-content-between align-items-center'>
+                          <span>Tax</span>
+                          <span className="text-muted">12</span>
+                      </ListGroupItem>
+                      <ListGroupItem className='d-flex justify-content-between align-items-center'>
+                          <span>Tip</span>
+                          <span className="text-muted">12</span>
+                      </ListGroupItem>
+                  </ListGroup>
+                  <Button color='primary' className='w-100' size='lg'>Proceed to payment</Button>
+              </div>
           </div>
       </div>
     ) : <Spinner type="primary" />

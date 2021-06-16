@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import {Field, Form, Formik} from 'formik';
 import {ORDERS_API_URL, TABLES_API_URL} from '../../constants';
 import {Redirect} from "react-router-dom";
-import {Table} from "../Tables/Tables";
-import { Card, CardBody, CardSubtitle, CardTitle, Spinner} from "reactstrap";
+import {getStatusName, StatusType, Table} from "../Tables/Tables";
+import {Card, CardBody, CardSubtitle, CardText, CardTitle, Spinner} from "reactstrap";
 import {Order} from "./Orders";
 import './Orders.css';
 
@@ -60,14 +60,15 @@ const NewOrder: React.FC<{}> = () => {
         >
           {({ isSubmitting, errors }) => (
             <Form>
-                <div role="group">
+                <div role="group d-flex flex-wrap">
                     {tables.map((table: Table) =>
-                        <label key={table.id}>
-                            <Field type="radio" className='d-none' name="tableId" value={table.id.toString()} />
-                            <Card>
+                        <label key={table.id} className={`m-3 ${table.status === StatusType.Occupied ? 'disabled' : 'pointer'}`}>
+                            <Field type="radio" disabled={table.status === StatusType.Occupied} className='d-none' name="tableId" value={table.id.toString()} />
+                            <Card color={table.status === StatusType.Occupied ? 'light' : ''}>
                                 <CardBody>
                                     <CardTitle tag="h5">Table {table.id}</CardTitle>
                                     <CardSubtitle tag="h6" className="mb-2 text-muted">Number of seats: {table.nrOfSeats}</CardSubtitle>
+                                    <CardText>{getStatusName(table.status)}</CardText>
                                 </CardBody>
                             </Card>
                         </label>
