@@ -21,6 +21,7 @@ namespace Restaurant.Data
         public DbSet<Menu> Menu { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<OrderMenuItem> OrderMenuItems { get; set; }
+        public DbSet<Bill> Bills { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Waiter> Waiter { get; set; }
         
@@ -33,9 +34,7 @@ namespace Restaurant.Data
             modelBuilder.ApplyConfiguration(new EmployeeEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OrderEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new TableEntityTypeConfiguration());
-            // modelBuilder.ApplyConfiguration(new OrderMenuItemEntityTypeConfiguration());
-            // modelBuilder.ApplyConfiguration(new BillEntityTypeConfiguration());
-            // modelBuilder.ApplyConfiguration(new MenuItemEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BillEntityTypeConfiguration());
             // modelBuilder.ApplyConfiguration(new PaymentItemEntityTypeConfiguration());
         }
     }

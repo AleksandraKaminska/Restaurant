@@ -30,6 +30,7 @@ namespace Restaurant
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ITableService, TableService>();
             services.AddScoped<IOrderMenuItemService, OrderMenuItemService>();
+            services.AddScoped<IBillService, BillService>();
             
             // services.AddCors(o => o.AddPolicy("ReactPolicy", builder =>
             // {
