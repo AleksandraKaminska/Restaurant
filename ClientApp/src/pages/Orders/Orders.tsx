@@ -4,6 +4,7 @@ import { FiEdit2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { DropdownItem, DropdownMenu, DropdownToggle, NavLink, Spinner, UncontrolledDropdown} from "reactstrap";
 import {Table} from "../Tables/Tables";
+import {OrderMenuItem} from "./OrderSummary";
 import './Orders.css';
 
 enum StatusType {
@@ -16,6 +17,7 @@ export type Order = {
     id: number
     status: StatusType
     table: Table
+    orderMenuItems: Array<OrderMenuItem>
 }
 
 const Orders: React.FC<{}> = () => {

@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import {Redirect, useParams} from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { ORDERS_API_URL} from '../../constants';
-import {Button, ListGroup, ListGroupItem, Media, Spinner} from "reactstrap";
+import { useParams} from 'react-router-dom';
+import {ORDER_MENU_ITEMS_API_URL, ORDERS_API_URL} from '../../constants';
+import {ListGroup, ListGroupItem, Media, Spinner} from "reactstrap";
 import {fetchMenu, MenuItem} from "../Menu/Menu";
 import groupBy from "lodash/groupBy";
+import OrderSummary, {OrderMenuItem} from "./OrderSummary";
 import './Orders.css';
 
 const EditOrder: React.FC<{}> = () => {
     let { id } = useParams<{ id: string }>();
     const [order, setOrder] = useState<any>(null);
-    const [submitted, setSubmitted] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false)
     const [menuItems, setMenuItems] = useState<Array<MenuItem>>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>()
+    const [orderMenuItems, setOrderMenuItems] = useState<Array<OrderMenuItem>>([])
     const menu = groupBy(menuItems, m => m.category)
     const menuCategories = Object.keys(menu)
     
@@ -26,12 +26,15 @@ const EditOrder: React.FC<{}> = () => {
             return resp
         }
         
-        fetchOrder().then(order => setOrder(order))
+        fetchOrder().then(order => {
+            setOrder(order)
+            setOrderMenuItems(order.orderMenuItems)
+        })
     }, [id])
-
+    
     useEffect(() => {
         if (order) {
-            fetchMenu(setLoading, order.table.local.id)
+            fetchMenu(setLoading, order.table.localId)
                 .then(menuItems => setMenuItems(menuItems))
         }
     }, [order])
@@ -40,12 +43,43 @@ const EditOrder: React.FC<{}> = () => {
         setSelectedCategory(menuCategories[0])
     }, [menuItems])
     
-    console.log(order)
-    
-    if (submitted) {
-        return <Redirect to='/orders' />
+    const addItemToOrder = (menuItemId: number) => {
+        const orderMenuItem = orderMenuItems.find(o => o.menuItem.id === menuItemId)
+            orderMenuItem ? fetch(`${ORDER_MENU_ITEMS_API_URL}/${orderMenuItem.id}`, {
+                    method: 'put',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        quantity: orderMenuItem.quantity + 1
+                    })
+                })
+                    .then(res => {
+                        setOrderMenuItems(orderMenuItems.map(el => {
+                            if (el.menuItem.id === menuItemId) {
+                                el.quantity += 1
+                            }
+                            return el
+                        }))
+                        return res.json()
+                    })
+                    .catch(err => console.log(err)) :
+        fetch(ORDER_MENU_ITEMS_API_URL, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                orderId: id,
+                menuItemId: menuItemId,
+                quantity: 1
+            })
+        })
+            .then(res => res.json())
+            .then(data => setOrderMenuItems([...orderMenuItems, data]))
+            .catch(err => console.log(err))
     }
-
+    
     return order && !loading ? (
       <div className='d-flex justify-content-between align-items-start'>
           <div className='w-50'>
@@ -66,7 +100,7 @@ const EditOrder: React.FC<{}> = () => {
               </ListGroup>
               <ListGroup className='mt-5' flush>
                   {selectedCategory && menu[selectedCategory].map(menuItem =>
-                      <ListGroupItem action type='button' key={menuItem.id}>
+                      <ListGroupItem action type='button' onClick={() => addItemToOrder(menuItem.id)} key={menuItem.id}>
                           <Media>
                               <Media body>
                                   <Media heading>{menuItem.title}</Media>
@@ -80,29 +114,7 @@ const EditOrder: React.FC<{}> = () => {
                   )}
               </ListGroup>
           </div>
-          <div className='order-summary mt-4 ml-5 pl-5 d-flex flex-column justify-content-between'>
-              <h1 className=''>Table {order.table.id}</h1>
-              <div className='items'>
-                  
-              </div>
-              <div className='d-flex flex-column justify-content-center align-items-center'>
-                  <ListGroup flush className='w-100 mb-4'>
-                      <ListGroupItem className='d-flex justify-content-between align-items-center'>
-                          <span>Total</span>
-                          <span className="text-muted">12</span>
-                      </ListGroupItem>
-                      <ListGroupItem className='d-flex justify-content-between align-items-center'>
-                          <span>Tax</span>
-                          <span className="text-muted">12</span>
-                      </ListGroupItem>
-                      <ListGroupItem className='d-flex justify-content-between align-items-center'>
-                          <span>Tip</span>
-                          <span className="text-muted">12</span>
-                      </ListGroupItem>
-                  </ListGroup>
-                  <Button color='primary' className='w-100' size='lg'>Proceed to payment</Button>
-              </div>
-          </div>
+          <OrderSummary order={order} orderMenuItems={orderMenuItems} setOrderMenuItems={setOrderMenuItems} />
       </div>
     ) : <Spinner type="primary" />
 }

@@ -20,6 +20,7 @@ namespace Restaurant.Data
         public DbSet<Table> Tables { get; set; }
         public DbSet<Menu> Menu { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<OrderMenuItem> OrderMenuItems { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Waiter> Waiter { get; set; }
         

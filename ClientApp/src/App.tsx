@@ -7,6 +7,7 @@ import EditLocal from './pages/Locals/Edit';
 import Locals from './pages/Locals/Locals';
 import NewOrder from './pages/Orders/New';
 import EditOrder from './pages/Orders/Edit';
+import Payment from './pages/Orders/Payment';
 import Orders from './pages/Orders/Orders';
 import NewTable from './pages/Tables/New';
 import EditTable from './pages/Tables/Edit';
@@ -34,6 +35,7 @@ const App = () => {
                     <Route exact path='/' component={Home} />
                     <AuthorizeRoute path='/orders' exact component={Orders} />
                     <AuthorizeRoute exact path='/orders/:id/edit' component={EditOrder} />
+                    <AuthorizeRoute exact path='/orders/:id/edit/payment' component={Payment} />
                     <AuthorizeRoute exact path='/orders/new' component={NewOrder} />
                     <AuthorizeRoute path='/tables' exact component={Tables} />
                     <AuthorizeRoute exact path='/tables/:id/edit' component={EditTable} />

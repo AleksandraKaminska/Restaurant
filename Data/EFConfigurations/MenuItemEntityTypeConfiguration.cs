@@ -9,7 +9,7 @@ namespace Restaurant.Data.EFConfigurations
         public void Configure(EntityTypeBuilder<MenuItem> builder) {
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
-            
+
             builder.HasOne(e => e.Menu)
                 .WithMany(p => p.MenuItems);
         }

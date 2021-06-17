@@ -8,9 +8,10 @@ namespace Restaurant.Models
         public int Id { get; set; }
         public int NrOfSeats { get; set; }
         public StatusType Status { get; set; }
+        public int LocalId { get; set; }
 
-        public List<Order> Orders { get; set; }
-        public Local Local { get; set; }
+        public virtual List<Order> Orders { get; set; }
+        public virtual Local Local { get; set; }
         
         public enum StatusType
         {

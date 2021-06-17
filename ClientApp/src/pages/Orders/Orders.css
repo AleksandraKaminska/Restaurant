@@ -2,6 +2,18 @@
   color: red;
 }
 
+.list-group-horizontal .list-group-item {
+  font-size: 14px;
+  padding: 10px;
+}
+
+.sticky-bottom {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  bottom: 20px;
+  z-index: 1;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -25,4 +37,13 @@ input:checked + .card {
   width: 40%;
   border-left: 1px solid lightgrey;
   height: 100%;
+  
+}
+
+.small {
+  font-size: 14px;
+}
+
+.item-price {
+  min-width: 40px;
 }

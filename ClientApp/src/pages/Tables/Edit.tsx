@@ -31,7 +31,7 @@ const EditTable: React.FC<{}> = () => {
         <Formik
           initialValues={{
               status: table.status,
-              localId: table.local.id,
+              localId: table.localId,
               nrOfSeats: table.nrOfSeats
           }}
           onSubmit={(values, { setSubmitting }) =>

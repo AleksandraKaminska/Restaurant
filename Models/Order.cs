@@ -7,8 +7,9 @@ namespace Restaurant.Models
     {
         public int Id { get; set; }
         
-        // public List<OrderMenuItem> OrderMenuItemList = new List<OrderMenuItem>();
+        public virtual List<OrderMenuItem> OrderMenuItems { get; set; }
         public virtual Waiter Waiter { get; set; }
+        
         public List<Bill> Bills = new List<Bill>();
         public Table Table { get; set; }
         
