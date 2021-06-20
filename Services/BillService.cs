@@ -29,12 +29,23 @@ namespace Restaurant.Services
     
     public async Task Create(BillRequest billRequest)
     {
-      // var local = await _applicationDbContext.Locals
-      //   .Include(s => s.Menu)
-      //   .FirstAsync(d => d.Id == menuItemRequest.LocalId);
-      //
+      var order = await _applicationDbContext.Orders
+        .FirstAsync(d => d.Id == billRequest.OrderId);
+      order.Status = Order.StatusType.Done;
+
+      var payment = new Payment
+      {
+        Total = billRequest.Total,
+        Method = billRequest.PaymentMethod
+      };
+      
       var bill = new Bill
       {
+        Tip = billRequest.Tip,
+        Total = billRequest.Total,
+        Tax = billRequest.Tax,
+        Payment = payment,
+        Order = order
       };
       
       await _applicationDbContext.Bills.AddAsync(bill);

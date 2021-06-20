@@ -12,7 +12,8 @@ namespace Restaurant.Models
         
         public double Tax { get; set; }
         
-        public virtual Order Order { get; }
+        public virtual Order Order { get; set; }
+        public virtual Payment Payment { get; set; }
 
         public Bill()
         {

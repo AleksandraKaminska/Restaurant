@@ -12,6 +12,10 @@ namespace Restaurant.Data.EFConfigurations
 
             builder.HasOne(e => e.Order)
                 .WithMany(p => p.Bills);
+
+            builder.HasOne(e => e.Payment)
+                .WithOne(p => p.Bill)
+                .HasForeignKey<Payment>(p => p.Id);
         }
     }
 }

@@ -29,6 +29,8 @@ namespace Restaurant.Services
     {
       return await _applicationDbContext.Orders
         .Include(s => s.Table)
+        .Include(s => s.Bills)
+        .ThenInclude(b => b.Payment)
         .Include(o => o.OrderMenuItems)
         .ThenInclude(o => o.MenuItem)
         .FirstAsync(d => d.Id == id);

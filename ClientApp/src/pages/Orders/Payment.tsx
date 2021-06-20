@@ -48,7 +48,7 @@ const Payment: React.FC<OrderSummaryProps> = () => {
             <Formik
                 initialValues={{
                     tip: 0,
-                    paymentMethod: 0
+                    paymentMethod: 0,
                 }}
                 onSubmit={(values, { setSubmitting }) =>
                 {
@@ -58,8 +58,11 @@ const Payment: React.FC<OrderSummaryProps> = () => {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
+                            orderId: order.id,
                             tip: values.tip,
-                            paymentMethod: values.paymentMethod
+                            paymentMethod: values.paymentMethod,
+                            total: orderTotal + values.tip,
+                            tax: (orderTotal * 23 / 100).toFixed(2)
                         })
                     })
                         .then(res => {

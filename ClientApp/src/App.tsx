@@ -6,6 +6,7 @@ import NewLocal from './pages/Locals/New';
 import EditLocal from './pages/Locals/Edit';
 import Locals from './pages/Locals/Locals';
 import NewOrder from './pages/Orders/New';
+import ShowOrder from './pages/Orders/Show';
 import EditOrder from './pages/Orders/Edit';
 import Payment from './pages/Orders/Payment';
 import Orders from './pages/Orders/Orders';
@@ -34,9 +35,10 @@ const App = () => {
                 <Layout>
                     <Route exact path='/' component={Home} />
                     <AuthorizeRoute path='/orders' exact component={Orders} />
+                    <AuthorizeRoute exact path='/order/new' component={NewOrder} />
+                    <AuthorizeRoute exact path='/orders/:id' component={ShowOrder} />
                     <AuthorizeRoute exact path='/orders/:id/edit' component={EditOrder} />
                     <AuthorizeRoute exact path='/orders/:id/edit/payment' component={Payment} />
-                    <AuthorizeRoute exact path='/orders/new' component={NewOrder} />
                     <AuthorizeRoute path='/tables' exact component={Tables} />
                     <AuthorizeRoute exact path='/tables/:id/edit' component={EditTable} />
                     <AuthorizeRoute exact path='/tables/new' component={NewTable} />

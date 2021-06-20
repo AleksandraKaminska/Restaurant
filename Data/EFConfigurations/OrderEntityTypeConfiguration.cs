@@ -17,6 +17,10 @@ namespace Restaurant.Data.EFConfigurations
             
             builder.HasOne(e => e.Table)
                 .WithMany(p => p.Orders);
+                
+            builder.HasMany(e => e.Bills)
+                .WithOne(p => p.Order)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

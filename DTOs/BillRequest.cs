@@ -10,5 +10,7 @@ namespace Restaurant.DTOs
         [Required]
         public float Tax { get; set; }
         public float Tip { get; set; }
+        public int OrderId { get; set; }
+        public Payment.MethodType PaymentMethod { get; set; }
     }
 }

@@ -16,9 +16,10 @@ type OrderSummaryProps = {
     order: Omit<Order, 'orderMenuItems'>
     orderMenuItems: Array<OrderMenuItem>
     setOrderMenuItems: React.Dispatch<React.SetStateAction<OrderMenuItem[]>>
+    editable?: boolean
 }
 
-const OrderSummary: React.FC<OrderSummaryProps> = ({ order, orderMenuItems, setOrderMenuItems}) => {
+const OrderSummary: React.FC<OrderSummaryProps> = ({ order, orderMenuItems, setOrderMenuItems, editable = true }) => {
     const {pathname} = useLocation()
     const orderTotal = orderMenuItems.reduce((prev, { quantity, menuItem}) =>
             prev + menuItem.price * quantity, 0)
@@ -87,23 +88,23 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ order, orderMenuItems, setO
                     <ListGroupItem key={orderMenuItem.id} className='d-flex justify-content-between align-items-center'>
                         <span>{orderMenuItem.menuItem?.title}</span>
                         <div>
-                            <Button 
+                            {editable && <Button 
                                 outline 
                                 className='pt-0 pb-0'
                                 color="secondary" 
                                 onClick={() => handleMinusClick(orderMenuItem.quantity, orderMenuItem.id)}
                             >
                                 -
-                            </Button>
+                            </Button> }
                             <span className="text-muted mx-3 small">{orderMenuItem.quantity}</span>
-                            <Button 
+                            {editable && <Button 
                                 outline
                                 className='pt-0 pb-0'
                                 color="secondary" 
                                 onClick={() => handlePlusClick(orderMenuItem.quantity, orderMenuItem.id)}
                             >
                                 +
-                            </Button>
+                            </Button> }
                             <span className='text-muted d-inline-block text-right ml-3 item-price small'>{orderMenuItem.menuItem.price * orderMenuItem.quantity} zł</span>
                         </div>
                     </ListGroupItem>
@@ -120,9 +121,9 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ order, orderMenuItems, setO
                         <span className="text-muted">{orderTotal * 23 / 100} zł</span>
                     </ListGroupItem>
                 </ListGroup>
-                <Link to={pathname + '/payment'} className='mx-4'>
+                { editable && <Link to={pathname + '/payment'} className='mx-4'>
                     <Button color='primary' className='w-100' size='lg'>Proceed to payment</Button>
-                </Link>
+                </Link> }
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ORDERS_API_URL } from '../../constants';
-import { FiEdit2 } from 'react-icons/fi';
+import {FiEdit2, FiEye} from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { DropdownItem, DropdownMenu, DropdownToggle, NavLink, Spinner, UncontrolledDropdown} from "reactstrap";
 import {Table} from "../Tables/Tables";
@@ -61,7 +61,7 @@ const Orders: React.FC<{}> = () => {
       <div>
           <div className={'header'}>
               <h1>All orders</h1>
-              <NavLink tag={Link} className="btn btn-primary" to="/orders/new">Add a new order</NavLink>
+              <NavLink tag={Link} className="btn btn-primary" to="/order/new">Add a new order</NavLink>
           </div>
           <table className="table table-hover table-striped mt-5">
             <thead>
@@ -77,6 +77,7 @@ const Orders: React.FC<{}> = () => {
                   <tr key={order.id}>
                       <th scope="row">{order.id}</th>
                       <td>
+                          {order.status === StatusType.Done ? getStatusName(order.status) : 
                           <UncontrolledDropdown>
                               <DropdownToggle caret color={'light'}>
                                   {getStatusName(order.status)}
@@ -85,13 +86,18 @@ const Orders: React.FC<{}> = () => {
                                   <DropdownItem onClick={() => changeOrderStatus(order.id, StatusType.Received)}>{getStatusName(StatusType.Received)}</DropdownItem>
                                   <DropdownItem onClick={() => changeOrderStatus(order.id, StatusType.InPreparation)}>{getStatusName(StatusType.InPreparation)}</DropdownItem>
                               </DropdownMenu>
-                          </UncontrolledDropdown>
+                          </UncontrolledDropdown>}
                       </td>
                       <td>{order.table.id}</td>
                       <td>
-                        <Link to={`/orders/${order.id}/edit`} className="btn btn-outline-primary ml-2">
-                            <FiEdit2 />
-                        </Link>
+                          {order.status === StatusType.Done ? 
+                              <Link to={`/orders/${order.id}`} className="btn btn-outline-primary ml-2">
+                                  <FiEye />
+                              </Link> : 
+                            <Link to={`/orders/${order.id}/edit`} className="btn btn-outline-primary ml-2">
+                                <FiEdit2 />
+                            </Link>
+                          }
                       </td>
                   </tr>
                 ))}
